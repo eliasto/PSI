@@ -8,3 +8,13 @@ C:\Users\elias\source\repos\Forms projet info\Forms projet info\obj\Debug\Forms 
 C:\Users\elias\source\repos\Forms projet info\Forms projet info\obj\Debug\Forms projet info.csproj.CoreCompileInputs.cache
 C:\Users\elias\source\repos\Forms projet info\Forms projet info\obj\Debug\Forms projet info.exe
 C:\Users\elias\source\repos\Forms projet info\Forms projet info\obj\Debug\Forms projet info.pdb
+C:\Users\elias\Desktop\Forms projet info\Forms projet info\bin\Debug\Forms projet info.exe.config
+C:\Users\elias\Desktop\Forms projet info\Forms projet info\bin\Debug\Forms projet info.exe
+C:\Users\elias\Desktop\Forms projet info\Forms projet info\bin\Debug\Forms projet info.pdb
+C:\Users\elias\Desktop\Forms projet info\Forms projet info\obj\Debug\Forms projet info.csproj.AssemblyReference.cache
+C:\Users\elias\Desktop\Forms projet info\Forms projet info\obj\Debug\Forms_projet_info.Form1.resources
+C:\Users\elias\Desktop\Forms projet info\Forms projet info\obj\Debug\Forms_projet_info.Properties.Resources.resources
+C:\Users\elias\Desktop\Forms projet info\Forms projet info\obj\Debug\Forms projet info.csproj.GenerateResource.cache
+C:\Users\elias\Desktop\Forms projet info\Forms projet info\obj\Debug\Forms projet info.csproj.CoreCompileInputs.cache
+C:\Users\elias\Desktop\Forms projet info\Forms projet info\obj\Debug\Forms projet info.exe
+C:\Users\elias\Desktop\Forms projet info\Forms projet info\obj\Debug\Forms projet info.pdb

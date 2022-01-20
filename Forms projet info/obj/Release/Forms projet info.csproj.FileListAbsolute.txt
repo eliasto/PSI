@@ -1,0 +1,13 @@
+C:\Users\elias\Desktop\Forms projet info\Forms projet info\bin\Release\Forms projet info.exe.config
+C:\Users\elias\Desktop\Forms projet info\Forms projet info\bin\Release\Forms projet info.exe
+C:\Users\elias\Desktop\Forms projet info\Forms projet info\bin\Release\Forms projet info.pdb
+C:\Users\elias\Desktop\Forms projet info\Forms projet info\obj\Release\Forms_projet_info.Form1.resources
+C:\Users\elias\Desktop\Forms projet info\Forms projet info\obj\Release\Forms_projet_info.Properties.Resources.resources
+C:\Users\elias\Desktop\Forms projet info\Forms projet info\obj\Release\Forms projet info.csproj.GenerateResource.cache
+C:\Users\elias\Desktop\Forms projet info\Forms projet info\obj\Release\Forms projet info.csproj.CoreCompileInputs.cache
+C:\Users\elias\Desktop\Forms projet info\Forms projet info\obj\Release\Forms projet info.exe
+C:\Users\elias\Desktop\Forms projet info\Forms projet info\obj\Release\Forms projet info.pdb
+C:\Users\elias\Desktop\Forms projet info\Forms projet info\bin\Release\Forms projet info.exe.manifest
+C:\Users\elias\Desktop\Forms projet info\Forms projet info\bin\Release\Forms projet info.application
+C:\Users\elias\Desktop\Forms projet info\Forms projet info\obj\Release\Forms projet info.exe.manifest
+C:\Users\elias\Desktop\Forms projet info\Forms projet info\obj\Release\Forms projet info.application
