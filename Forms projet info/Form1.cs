@@ -479,5 +479,37 @@ namespace Forms_projet_info
         {
 
         }
+
+        private void button23_Click(object sender, EventArgs e)
+        {
+            MyImage histo = this.image.Histogramme(2);
+            MemoryStream ms = new MemoryStream(histo.From_Image_To_Array());
+            Image bitmap = Image.FromStream(ms);
+
+
+            pictureBox2.Image = bitmap; pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+        }
+
+        private void button24_Click(object sender, EventArgs e)
+        {
+
+            MyImage histo = this.image.Histogramme(1);
+            MemoryStream ms = new MemoryStream(histo.From_Image_To_Array());
+            Image bitmap = Image.FromStream(ms);
+
+
+            pictureBox2.Image = bitmap; pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+        }
+
+        private void button25_Click(object sender, EventArgs e)
+        {
+
+            MyImage histo = this.image.Histogramme(3);
+            MemoryStream ms = new MemoryStream(histo.From_Image_To_Array());
+            Image bitmap = Image.FromStream(ms);
+
+
+            pictureBox2.Image = bitmap; pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+        }
     }
 }

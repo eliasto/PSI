@@ -95,6 +95,9 @@ namespace Forms_projet_info
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.textBox9 = new System.Windows.Forms.TextBox();
             this.textBox10 = new System.Windows.Forms.TextBox();
+            this.button23 = new System.Windows.Forms.Button();
+            this.button24 = new System.Windows.Forms.Button();
+            this.button25 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -160,6 +163,9 @@ namespace Forms_projet_info
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button25);
+            this.groupBox1.Controls.Add(this.button24);
+            this.groupBox1.Controls.Add(this.button23);
             this.groupBox1.Controls.Add(this.numericUpDown1);
             this.groupBox1.Controls.Add(this.button13);
             this.groupBox1.Controls.Add(this.button12);
@@ -183,7 +189,7 @@ namespace Forms_projet_info
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(291, 158);
+            this.numericUpDown1.Location = new System.Drawing.Point(6, 174);
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(56, 22);
             this.numericUpDown1.TabIndex = 23;
@@ -191,7 +197,7 @@ namespace Forms_projet_info
             // 
             // button13
             // 
-            this.button13.Location = new System.Drawing.Point(368, 158);
+            this.button13.Location = new System.Drawing.Point(83, 174);
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(88, 23);
             this.button13.TabIndex = 22;
@@ -767,6 +773,36 @@ namespace Forms_projet_info
             this.textBox10.TabIndex = 43;
             this.textBox10.TextChanged += new System.EventHandler(this.textBox10_TextChanged);
             // 
+            // button23
+            // 
+            this.button23.Location = new System.Drawing.Point(374, 145);
+            this.button23.Name = "button23";
+            this.button23.Size = new System.Drawing.Size(146, 23);
+            this.button23.TabIndex = 24;
+            this.button23.Text = "Histogramme vert";
+            this.button23.UseVisualStyleBackColor = true;
+            this.button23.Click += new System.EventHandler(this.button23_Click);
+            // 
+            // button24
+            // 
+            this.button24.Location = new System.Drawing.Point(535, 145);
+            this.button24.Name = "button24";
+            this.button24.Size = new System.Drawing.Size(146, 23);
+            this.button24.TabIndex = 25;
+            this.button24.Text = "Histogramme bleu";
+            this.button24.UseVisualStyleBackColor = true;
+            this.button24.Click += new System.EventHandler(this.button24_Click);
+            // 
+            // button25
+            // 
+            this.button25.Location = new System.Drawing.Point(454, 174);
+            this.button25.Name = "button25";
+            this.button25.Size = new System.Drawing.Size(146, 23);
+            this.button25.TabIndex = 26;
+            this.button25.Text = "Histogramme rouge";
+            this.button25.UseVisualStyleBackColor = true;
+            this.button25.Click += new System.EventHandler(this.button25_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -865,6 +901,9 @@ namespace Forms_projet_info
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button button23;
+        private System.Windows.Forms.Button button25;
+        private System.Windows.Forms.Button button24;
     }
 }
 

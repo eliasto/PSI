@@ -323,17 +323,9 @@ namespace Forms_projet_info
         /// <summary>
         /// Génère un histogramme d'une image en fonction des composantes couleurs RGB
         /// </summary>
-        public void Histogramme()
+        public MyImage Histogramme(int couleur)
         {
-            int couleur = 0;
-            while (couleur < 1 || couleur > 3)
-            {
-                Console.WriteLine("Choisir quelle histogramme afficher"
-                    + "\n1: Histogramme bleu"
-                    + "\n2: Histogramme vert"
-                    + "\n3: Histogramme rouge");
-                couleur = Convert.ToInt32(Console.ReadLine());
-            }
+            
 
             int max = 0;
 
@@ -418,11 +410,11 @@ namespace Forms_projet_info
             }
 
 
-            MyImage histogramme = new MyImage(max, 256);
+            MyImage histogramme = new MyImage(256, max);
             histogramme.image = histo;
 
 
-            histogramme.From_Image_To_File("./image/histogramme.bmp");
+            return histogramme;
         }
         /// <summary>
         /// Transforme l'image en soit des pixels noir ou blanc
@@ -1021,8 +1013,17 @@ namespace Forms_projet_info
             int hauteurFinal = hauteur / 5;
             int largeurFinal = QRCode.Largeur / 5;
 
-            if (largeurFinal > hauteurFinal) logo.Rétrécissement(logo.Hauteur / hauteurFinal);
-            else logo.Rétrécissement(logo.Largeur / largeurFinal);
+            if(logo.Hauteur / hauteurFinal > 1 || logo.Largeur / largeurFinal > 1)
+            {
+                if (largeurFinal > hauteurFinal) logo.Rétrécissement(logo.Hauteur / hauteurFinal);
+                else logo.Rétrécissement(logo.Largeur / largeurFinal);                
+            } else
+            {
+                if (largeurFinal > hauteurFinal) logo.Agrandir(hauteurFinal/logo.Hauteur);
+                else logo.Agrandir(largeurFinal/logo.Largeur);
+            }
+            
+           
 
 
             int hauteurLogo = logo.hauteur/2;
