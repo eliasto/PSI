@@ -18,3 +18,8 @@ C:\Users\elias\Desktop\Forms projet info\Forms projet info\obj\Debug\Forms proje
 C:\Users\elias\Desktop\Forms projet info\Forms projet info\obj\Debug\Forms projet info.csproj.CoreCompileInputs.cache
 C:\Users\elias\Desktop\Forms projet info\Forms projet info\obj\Debug\Forms projet info.exe
 C:\Users\elias\Desktop\Forms projet info\Forms projet info\obj\Debug\Forms projet info.pdb
+C:\Users\elias\Desktop\Forms projet info\Forms projet info\bin\Debug\Forms projet info.exe.manifest
+C:\Users\elias\Desktop\Forms projet info\Forms projet info\bin\Debug\Forms projet info.application
+C:\Users\elias\Desktop\Forms projet info\Forms projet info\obj\Debug\Forms projet info.exe.manifest
+C:\Users\elias\Desktop\Forms projet info\Forms projet info\obj\Debug\Forms projet info.application
+C:\Users\elias\Desktop\Forms projet info\Forms projet info\obj\Debug\Forms projet info.csproj.SuggestedBindingRedirects.cache
