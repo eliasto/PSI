@@ -60,8 +60,16 @@ namespace Forms_projet_info
                 {
                     for (int j = 0; j < tab.GetLength(1); j++)
                     {
-                        tab[i, j] = new Pixel(myfile[position], myfile[position + 1], myfile[position + 2]);
-                        position = position + 3;
+                        if(this.nombreDeBitsParCouleur == 32)
+                        {
+                            tab[i, j] = new Pixel(myfile[position], myfile[position + 1], myfile[position + 2], myfile[position + 3]);
+                            position = position + 4;
+                        }
+                        else
+                        {
+                            tab[i, j] = new Pixel(myfile[position], myfile[position + 1], myfile[position + 2]);
+                            position = position + 3;
+                        }
                     }
                     position = position + nombrePourMultiple4;
 
@@ -242,11 +250,24 @@ namespace Forms_projet_info
                 for (int j = 0; j < this.image.GetLength(1); j++)
                 {
 
-                    bytes[position] = (byte)this.image[i, j].r;
-                    bytes[position + 1] = (byte)this.image[i, j].g;
-                    bytes[position + 2] = (byte)this.image[i, j].b;
+                    if (this.nombreDeBitsParCouleur == 32)
+                    {
+                        bytes[position] = (byte)this.image[i, j].r;
+                        bytes[position + 1] = (byte)this.image[i, j].g;
+                        bytes[position + 2] = (byte)this.image[i, j].b;
+                        bytes[position + 3] = (byte)this.image[i, j].a;
 
-                    position = position + 3;
+
+                        position = position + 4;
+                    }
+                    else
+                    {
+                        bytes[position] = (byte)this.image[i, j].r;
+                        bytes[position + 1] = (byte)this.image[i, j].g;
+                        bytes[position + 2] = (byte)this.image[i, j].b;
+
+                        position = position + 3;
+                    }
                 }
                 position = nombrePourMultiple4 + position;
 
@@ -306,11 +327,24 @@ namespace Forms_projet_info
                 for (int j = 0; j < this.image.GetLength(1); j++)
                 {
 
-                    bytes[position] = (byte)this.image[i, j].r;
-                    bytes[position + 1] = (byte)this.image[i, j].g;
-                    bytes[position + 2] = (byte)this.image[i, j].b;
+                    if(this.nombreDeBitsParCouleur == 32)
+                    {
+                        bytes[position] = (byte)this.image[i, j].r;
+                        bytes[position + 1] = (byte)this.image[i, j].g;
+                        bytes[position + 2] = (byte)this.image[i, j].b;
+                        bytes[position + 3] = (byte)this.image[i, j].a;
 
-                    position = position + 3;
+
+                        position = position + 4;
+                    }
+                    else
+                    {
+                        bytes[position] = (byte)this.image[i, j].r;
+                        bytes[position + 1] = (byte)this.image[i, j].g;
+                        bytes[position + 2] = (byte)this.image[i, j].b;
+
+                        position = position + 3;
+                    }
                 }
                 position = nombrePourMultiple4 + position;
 
@@ -1010,8 +1044,8 @@ namespace Forms_projet_info
         public static MyImage ImageDansQrCode(MyImage QRCode, MyImage logo)
         {
             int hauteur = QRCode.Hauteur;
-            int hauteurFinal = hauteur / 5;
-            int largeurFinal = QRCode.Largeur / 5;
+            int hauteurFinal = hauteur / 6;
+            int largeurFinal = QRCode.Largeur / 6;
 
             if(logo.Hauteur / hauteurFinal > 1 || logo.Largeur / largeurFinal > 1)
             {
@@ -1274,8 +1308,6 @@ namespace Forms_projet_info
                 }
                 this.image = newImage;
             }
-
-
         }
 
         public void Convolution(double[,] Noyau)
@@ -1343,7 +1375,7 @@ namespace Forms_projet_info
             return couleur;
         }
 
-        public static void Fractale(int hauteur, int largeur)
+        public static MyImage Fractale(int hauteur, int largeur)
         {
             int limite = 500;
             MyImage myImage = new MyImage(hauteur, largeur);
@@ -1362,7 +1394,7 @@ namespace Forms_projet_info
                         if (z.Magnitude > 2) break;
                     }
 
-                    int[] color = { 255, 151, 90 };
+                    int[] color = { 255, 255, 255 };
 
                     int red = (compteur % 255 - (255 - color[0])) < 0 ? 0 : (compteur % 255 - (255 - color[0])) > 255 ? 255 : (compteur % 255 - (255 - color[0]));
                     int green = (compteur % 255 - (255 - color[1])) < 0 ? 0 : (compteur % 255 - (255 - color[1])) > 255 ? 255 : (compteur % 255 - (255 - color[1]));
@@ -1372,7 +1404,7 @@ namespace Forms_projet_info
                     else myImage.image[i, j] = new Pixel(red, green, blue);
                 }
             }
-            myImage.From_Image_To_File("./image/Fractal.bmp");
+            return myImage;
 
         }
 
@@ -1478,6 +1510,192 @@ namespace Forms_projet_info
         public Pixel[,] Image
         {
             get { return this.image; }
+        }
+
+        public void Caché(Pixel[,] Image1, Pixel[,] Image2)
+        {
+            if (Image1.GetLength(0) < Image2.GetLength(0) || Image1.GetLength(1) < Image2.GetLength(1))
+            {
+                Console.WriteLine("Il n'est pas possible de cacher l'image ");
+            }
+            else
+            {
+
+                string longueur = ConvertIntToBinaryStringTaille(Image2.GetLength(0));
+                string largeur = ConvertIntToBinaryStringTaille(Image2.GetLength(1));
+
+                string bitR;
+                string bitG;
+                string bitB;
+                string bitA;
+                string bitR1;
+                string bitG1;
+                string bitB1;
+                string bitA1;
+                int R1;
+                int G1;
+                int B1;
+                int A1;
+                for (int i = 0; i < Image2.GetLength(0); i++)
+                {
+                    bitR = "";
+                    bitG = "";
+                    bitB = "";
+                    bitA = "";
+
+                    bitR1 = "";
+                    bitG1 = "";
+                    bitB1 = "";
+                    bitA1 = "";
+                    R1 = 0;
+                    G1 = 0;
+                    B1 = 0;
+                    A1 = 0;
+
+                    Pixel couleur;
+                    for (int j = 0; j < Image2.GetLength(1); j++)
+                    {
+                        bitR = ConvertIntToBinaryString(Image1[i, j].r);  //Convertit les entiers rouge de l'image 1 en bits    
+                        bitG = ConvertIntToBinaryString(Image1[i, j].g);  //Convertit les entiers vert de l'image 1 en bits                   
+                        bitB = ConvertIntToBinaryString(Image1[i, j].b); //Convertit les entiers bleu de l'image 1 en bits
+                        bitA = ConvertIntToBinaryString(Image1[i, j].a); //Convertit les entiers alpha de l'image 1 en bits
+
+                        bitR1 = bitR.Substring(0, 4);  //Ecrit les bits de poids fort de l'image 1 sur les bits de poids fort 
+                        bitG1 = bitG.Substring(0, 4);
+                        bitB1 = bitB.Substring(0, 4);
+                        bitA1 = bitA.Substring(0, 4);
+
+                        bitR = ConvertIntToBinaryString(Image2[i, j].r);  //Convertit les entiers de l'image 2 en bits
+                        bitG = ConvertIntToBinaryString(Image2[i, j].g);
+                        bitB = ConvertIntToBinaryString(Image2[i, j].b);
+                        bitA = ConvertIntToBinaryString(Image2[i, j].a);
+
+                        bitR1 = bitR1 + bitR.Substring(0, 4); //Ecrit les bits de poids fort de l'image 2 sur les bits de poids faible
+                        bitG1 = bitG1 + bitG.Substring(0, 4);
+                        bitB1 = bitB1 + bitB.Substring(0, 4);
+                        bitA1 = bitA1 + bitA.Substring(0, 4);
+
+
+                        R1 = ConvertBinaryStringToInt(bitR1); //Convertit les bits en int 
+                        G1 = ConvertBinaryStringToInt(bitG1);
+                        B1 = ConvertBinaryStringToInt(bitB1);
+                        A1 = ConvertBinaryStringToInt(bitA1);
+
+                        couleur = new Pixel(R1, G1, B1, A1);
+                        Image1[i, j] = couleur;
+                    }
+                }
+
+                this.image[this.image.GetLength(0) - 1, this.image.GetLength(1) - 1] = GarderTaille(largeur, this.image[this.image.GetLength(0) - 1, this.image.GetLength(1) - 1]); //Place les données de la largeur dans les bits de poids faibles
+                this.image[0, this.image.GetLength(1) - 1] = GarderTaille(longueur, this.image[0, this.image.GetLength(1) - 1]);  //Place les données de la longueur dans les bits de poids faibles
+            }
+
+        }
+
+        public static string ConvertIntToBinaryStringTaille(int value)
+        {
+            string binaryString = Convert.ToString(value, 2);
+            int a = 16 - binaryString.Length;
+            string result = "";
+            for (var index = 0; index < a; index++)
+            {
+                result = result + '0';
+            }
+            result = result + binaryString;
+            return result;
+
+        }
+        public static string ConvertIntToBinaryString(int value)
+        {
+            string binaryString = Convert.ToString(value, 2);
+
+            int a = 8 - (binaryString.Length);
+
+            string result = "";
+            for (var index = 0; index < a; index++)
+            {
+                result = result + '0';
+            }
+            result = result + binaryString;
+            return result;
+
+
+        }
+        public static int ConvertBinaryStringToInt(string bit)
+        {
+            int a;
+            int intensité = 0;
+            for (int k = 0; k < bit.Length; k++)
+            {
+                a = 0;
+                if (bit[k] == '1')
+                {
+                    a = 1;
+                }
+                intensité = intensité + a * Convert.ToInt32(Math.Pow(2, (bit.Length - 1 - k)));
+
+            }
+            return intensité;
+        }
+        public static Pixel GarderTaille(string bits, Pixel couleur)
+        {
+            string nouveaubits;
+
+            nouveaubits = Convert.ToString(couleur.r, 2).Substring(0, 4) + bits.Substring(12, 4);
+            couleur.r = ConvertBinaryStringToInt(nouveaubits);  //pour le rouge les puissances les plus petites
+            nouveaubits = Convert.ToString(couleur.g, 2).Substring(0, 4) + bits.Substring(8, 4);
+            couleur.g = ConvertBinaryStringToInt(nouveaubits);
+            nouveaubits = Convert.ToString(couleur.b, 2).Substring(0, 4) + bits.Substring(4, 4);
+            couleur.b = ConvertBinaryStringToInt(nouveaubits);
+            nouveaubits = Convert.ToString(couleur.a, 2).PadLeft(4,'0').Substring(0, 4) + bits.Substring(0, 4);
+            couleur.a = ConvertBinaryStringToInt(nouveaubits);  //pour le alpha les puissances les plus grandes
+
+            return couleur;
+        }
+
+        public void Cherché()
+        {
+            string a = ConvertIntToBinaryString(this.image[0, this.image.GetLength(1) - 1].a).Substring(4, 4);
+            a = a + ConvertIntToBinaryString(this.image[0, this.image.GetLength(1) - 1].b).Substring(4, 4);
+            a = a + ConvertIntToBinaryString(this.image[0, this.image.GetLength(1) - 1].g).Substring(4, 4);
+            a = a + ConvertIntToBinaryString(this.image[0, this.image.GetLength(1) - 1].r).Substring(4, 4);
+
+            string b = ConvertIntToBinaryString(this.image[this.image.GetLength(0) - 1, this.image.GetLength(1) - 1].a).Substring(4, 4);
+            b = b + ConvertIntToBinaryString(this.image[this.image.GetLength(0) - 1, this.image.GetLength(1) - 1].b).Substring(4, 4);
+            b = b + ConvertIntToBinaryString(this.image[this.image.GetLength(0) - 1, this.image.GetLength(1) - 1].g).Substring(4, 4);
+            b = b + ConvertIntToBinaryString(this.image[this.image.GetLength(0) - 1, this.image.GetLength(1) - 1].r).Substring(4, 4);
+
+            int largeur = ConvertBinaryStringToInt(a); //largeur de l'image caché
+            int longueur = ConvertBinaryStringToInt(b);  //longueur de l'image caché
+
+
+
+
+            for (int i = 0; i < largeur; i++)
+            {
+                for (int j = 0; j < longueur; j++)
+                {
+
+                    this.image[i, j] = Retrouver(this.image[i, j]);
+
+                }
+            }
+
+        }
+
+        public static Pixel Retrouver(Pixel couleur)  //Permet de prendre les bits de poids faible (les bits de poids fort de base de l'image caché) et de les placer sur les bits de poids fort
+        {
+            string rouge = ConvertIntToBinaryString(couleur.r);
+            string vert = ConvertIntToBinaryString(couleur.g);
+            string bleu = ConvertIntToBinaryString(couleur.b);
+
+            rouge = rouge.Substring(4, 4) + "0000";
+            vert = vert.Substring(4, 4) + "0000";
+            bleu = bleu.Substring(4, 4) + "0000";
+
+            Pixel nouveau = new Pixel(ConvertBinaryStringToInt(rouge), ConvertBinaryStringToInt(vert), ConvertBinaryStringToInt(bleu));
+            return nouveau;
+
         }
     }
 

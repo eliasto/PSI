@@ -16,6 +16,11 @@ namespace Forms_projet_info
         private MyImage image;
         private Color colorWheel = Color.Black;
         private MyImage logo = null;
+        private MyImage fractale;
+        
+        private MyImage cache;
+        private MyImage source;
+        private MyImage result;
         public Form1()
         {
             InitializeComponent();
@@ -510,6 +515,229 @@ namespace Forms_projet_info
 
 
             pictureBox2.Image = bitmap; pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+        }
+
+        private void button26_Click(object sender, EventArgs e)
+        {
+            button27.Enabled = false;
+            MyImage fractale = MyImage.Fractale((int)numericUpDown3.Value, (int)numericUpDown4.Value);
+            MemoryStream ms = new MemoryStream(fractale.From_Image_To_Array());
+            Image bitmap = Image.FromStream(ms);
+
+            this.fractale = fractale;
+
+            button27.Enabled = true;
+            pictureBox7.Image = bitmap; pictureBox7.SizeMode = PictureBoxSizeMode.Zoom;
+            string message = "Votre image a bien été générée !";
+            string caption = "Succès";
+            MessageBoxButtons buttons = MessageBoxButtons.OK;
+            DialogResult result;
+
+            // Displays the MessageBox.
+            result = MessageBox.Show(message, caption, buttons);
+        }
+
+        private void pictureBox7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown3_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown4_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button27_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "Bitmap Image|*.bmp";
+            saveFileDialog1.Title = "Save an Image File";
+            saveFileDialog1.ShowDialog();
+
+            // If the file name is not an empty string open it for saving.
+            if (saveFileDialog1.FileName != "")
+            {
+                this.fractale.From_Image_To_File(saveFileDialog1.FileName);
+            }
+        }
+
+        private void label13_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button28_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label14_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button32_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+
+            openFileDialog1.InitialDirectory = "C:\\Users\\elias\\Desktop\\projet info\\projet info\\bin\\Debug\\image";
+            openFileDialog1.Filter = "Image Files(*.BMP)|*.BMP";
+            openFileDialog1.FilterIndex = 0;
+            openFileDialog1.RestoreDirectory = true;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string selectedFileName = openFileDialog1.FileName;
+
+                this.source = new MyImage(selectedFileName);
+                Bitmap b = new Bitmap(selectedFileName);
+
+                pictureBox10.Image = b;
+                pictureBox10.SizeMode = PictureBoxSizeMode.Zoom;
+                pictureBox8.Image = b;
+                pictureBox8.SizeMode = PictureBoxSizeMode.Zoom;
+                button34.Enabled = false;
+                button29.Enabled = true;
+                button28.Enabled = true;
+                this.cache = null;
+                pictureBox9.Image = null;
+            }
+        }
+
+        private void pictureBox10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button33_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+
+            openFileDialog1.InitialDirectory = "C:\\Users\\elias\\Desktop\\projet info\\projet info\\bin\\Debug\\image";
+            openFileDialog1.Filter = "Image Files(*.BMP)|*.BMP";
+            openFileDialog1.FilterIndex = 0;
+            openFileDialog1.RestoreDirectory = true;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string selectedFileName = openFileDialog1.FileName;
+
+                this.cache = new MyImage(selectedFileName);
+                Bitmap b = new Bitmap(selectedFileName);
+
+                pictureBox9.Image = b;
+                pictureBox9.SizeMode = PictureBoxSizeMode.Zoom;
+            }
+        }
+
+        private void pictureBox9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button28_Click_1(object sender, EventArgs e)
+        {
+            this.source.Caché(this.source.Image, this.cache.Image);
+            this.result = this.source;
+
+            MemoryStream ms = new MemoryStream(this.result.From_Image_To_Array());
+            Image bitmap = Image.FromStream(ms);
+
+
+            pictureBox10.Image = bitmap; pictureBox10.SizeMode = PictureBoxSizeMode.Zoom;
+            button34.Enabled = true;
+            string message = "Votre image a bien été générée !";
+            string caption = "Succès";
+            MessageBoxButtons buttons = MessageBoxButtons.OK;
+            DialogResult result;
+
+            // Displays the MessageBox.
+            result = MessageBox.Show(message, caption, buttons);
+            
+
+        }
+
+        private void button29_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button34_Click(object sender, EventArgs e)
+        {
+
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "Bitmap Image|*.bmp";
+            saveFileDialog1.Title = "Save an Image File";
+            saveFileDialog1.ShowDialog();
+
+            // If the file name is not an empty string open it for saving.
+            if (saveFileDialog1.FileName != "")
+            {
+                this.result.From_Image_To_File(saveFileDialog1.FileName);
+                string message = "Le fichier a été sauvegardé !";
+                string caption = "Succès";
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                DialogResult result;
+
+                // Displays the MessageBox.
+                result = MessageBox.Show(message, caption, buttons);
+            }
+        }
+
+        private void button35_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button29_Click_1(object sender, EventArgs e)
+        {
+
+            this.source.Cherché();
+            this.result = this.source;
+
+            MemoryStream ms = new MemoryStream(this.result.From_Image_To_Array());
+            Image bitmap = Image.FromStream(ms);
+
+
+            pictureBox10.Image = bitmap; pictureBox10.SizeMode = PictureBoxSizeMode.Zoom;
+            button34.Enabled = true;
+            string message = "L'image a été décodé !";
+            string caption = "Succès";
+            MessageBoxButtons buttons = MessageBoxButtons.OK;
+            DialogResult result;
+
+            // Displays the MessageBox.
+            result = MessageBox.Show(message, caption, buttons);
+        }
+
+        private void label17_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox11_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox12_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox13_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
