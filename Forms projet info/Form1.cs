@@ -368,8 +368,22 @@ namespace Forms_projet_info
 
         private void button19_Click(object sender, EventArgs e)
         {
-            double[,] convolution = { { Convert.ToDouble(textBox2.Text), Convert.ToDouble(textBox4.Text), Convert.ToDouble(textBox3.Text) } , { Convert.ToDouble(textBox7.Text), Convert.ToDouble(textBox5.Text), Convert.ToDouble(textBox6.Text) } , { Convert.ToDouble(textBox10.Text), Convert.ToDouble(textBox8.Text), Convert.ToDouble(textBox9.Text) } };
-            this.image.Convolution(convolution);
+            try
+            {
+                double[,] convolution = { { Convert.ToDouble(textBox2.Text), Convert.ToDouble(textBox4.Text), Convert.ToDouble(textBox3.Text) }, { Convert.ToDouble(textBox7.Text), Convert.ToDouble(textBox5.Text), Convert.ToDouble(textBox6.Text) }, { Convert.ToDouble(textBox10.Text), Convert.ToDouble(textBox8.Text), Convert.ToDouble(textBox9.Text) } };
+                this.image.Convolution(convolution);
+
+            }
+            catch
+            {
+                string message = "La matrice de convolution n'est pas valide !";
+                string caption = "Erreur";
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                DialogResult result;
+
+                // Displays the MessageBox.
+                result = MessageBox.Show(message, caption, buttons);
+            }
             MemoryStream ms = new MemoryStream(this.image.From_Image_To_Array());
             Image bitmap = Image.FromStream(ms);
 
@@ -702,22 +716,36 @@ namespace Forms_projet_info
         private void button29_Click_1(object sender, EventArgs e)
         {
 
-            this.source.Cherché();
-            this.result = this.source;
+            try
+            {
+                this.source.Cherché();
+                this.result = this.source;
 
-            MemoryStream ms = new MemoryStream(this.result.From_Image_To_Array());
-            Image bitmap = Image.FromStream(ms);
+                MemoryStream ms = new MemoryStream(this.result.From_Image_To_Array());
+                Image bitmap = Image.FromStream(ms);
 
 
-            pictureBox10.Image = bitmap; pictureBox10.SizeMode = PictureBoxSizeMode.Zoom;
-            button34.Enabled = true;
-            string message = "L'image a été décodé !";
-            string caption = "Succès";
-            MessageBoxButtons buttons = MessageBoxButtons.OK;
-            DialogResult result;
+                pictureBox10.Image = bitmap; pictureBox10.SizeMode = PictureBoxSizeMode.Zoom;
+                button34.Enabled = true;
+                string message = "L'image a été décodé !";
+                string caption = "Succès";
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                DialogResult result;
 
-            // Displays the MessageBox.
-            result = MessageBox.Show(message, caption, buttons);
+                // Displays the MessageBox.
+                result = MessageBox.Show(message, caption, buttons);
+            }
+            catch
+            {
+                string message1 = "Cette image ne peut pas être décodé !";
+                string caption1 = "Erreur";
+                MessageBoxButtons buttons1 = MessageBoxButtons.OK;
+                DialogResult result1;
+
+                // Displays the MessageBox.
+                result1 = MessageBox.Show(message1, caption1, buttons1);
+            }
+            
         }
 
         private void label17_Click(object sender, EventArgs e)
@@ -736,6 +764,138 @@ namespace Forms_projet_info
         }
 
         private void textBox13_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label18_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox11_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button36_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+
+            openFileDialog1.InitialDirectory = "C:\\Users\\elias\\Desktop\\projet info\\projet info\\bin\\Debug\\image";
+            openFileDialog1.Filter = "Image Files(*.BMP)|*.BMP";
+            openFileDialog1.FilterIndex = 0;
+            openFileDialog1.RestoreDirectory = true;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string selectedFileName = openFileDialog1.FileName;
+
+                this.image = new MyImage(selectedFileName);
+                this.image.From_Image_To_File("./original.bmp");
+                Bitmap b = new Bitmap(selectedFileName);
+                button35.Visible = true;
+
+                button37.Visible = true;
+                button38.Visible = true;
+
+
+                pictureBox12.Image = b;
+                pictureBox12.SizeMode = PictureBoxSizeMode.Zoom;
+                
+            }
+        }
+
+        private void button35_Click_1(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "Bitmap Image|*.bmp";
+            saveFileDialog1.Title = "Save an Image File";
+            saveFileDialog1.ShowDialog();
+
+            // If the file name is not an empty string open it for saving.
+            if (saveFileDialog1.FileName != "")
+            {
+                this.image.From_Image_To_File(saveFileDialog1.FileName);
+                string message = "L'image a été sauvegardé !";
+                string caption = "Succès";
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                DialogResult result;
+
+                // Displays the MessageBox.
+                result = MessageBox.Show(message, caption, buttons);
+            }
+        }
+
+        private void pictureBox12_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button38_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.image.Rétrécissement(Convert.ToInt32(textBox14.Text));
+
+                MemoryStream ms = new MemoryStream(this.image.From_Image_To_Array());
+                Image bitmap = Image.FromStream(ms);
+                button35.Enabled = true;
+
+                pictureBox11.Image = bitmap; 
+                pictureBox11.SizeMode = PictureBoxSizeMode.Zoom;
+                string message = "L'image a été rétréci !";
+                string caption = "Succès";
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                DialogResult result;
+
+                // Displays the MessageBox.
+                result = MessageBox.Show(message, caption, buttons);
+            }
+            catch
+            {
+                string message1 = "Cette image ne peut pas être rétréci !";
+                string caption1 = "Erreur";
+                MessageBoxButtons buttons1 = MessageBoxButtons.OK;
+                DialogResult result1;
+
+                // Displays the MessageBox.
+                result1 = MessageBox.Show(message1, caption1, buttons1);
+            }
+        }
+
+        private void button37_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.image.Agrandir(Convert.ToInt32(textBox14.Text));
+
+                MemoryStream ms = new MemoryStream(this.image.From_Image_To_Array());
+                Image bitmap = Image.FromStream(ms);
+                button35.Enabled = true;
+
+                pictureBox11.Image = bitmap; pictureBox11.SizeMode = PictureBoxSizeMode.Zoom;
+                string message = "L'image a été agrandi !";
+                string caption = "Succès";
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                DialogResult result;
+
+                // Displays the MessageBox.
+                result = MessageBox.Show(message, caption, buttons);
+            }
+            catch
+            {
+                string message1 = "Cette image ne peut pas être agrandi !";
+                string caption1 = "Erreur";
+                MessageBoxButtons buttons1 = MessageBoxButtons.OK;
+                DialogResult result1;
+
+                // Displays the MessageBox.
+                result1 = MessageBox.Show(message1, caption1, buttons1);
+            }
+        }
+
+        private void textBox14_TextChanged(object sender, EventArgs e)
         {
 
         }

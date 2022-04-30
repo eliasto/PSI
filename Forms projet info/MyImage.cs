@@ -12,13 +12,13 @@ namespace Forms_projet_info
 {
     class MyImage
     {
-        private string type;
-        private int taille;
-        private int offset;
-        private int largeur;
-        private int hauteur;
-        private int nombreDeBitsParCouleur;
-        private Pixel[,] image;
+        private string type; //Type de l'image
+        private int taille; //Taille en octet de l'image
+        private int offset; //Offset de l'image = 54
+        private int largeur; //Largeur de l'image
+        private int hauteur; //Hauteur de l'image
+        private int nombreDeBitsParCouleur; //Nombre de bits par couleur pour l'image
+        private Pixel[,] image; //Image
 
         /// <summary>
         /// Classe MyImage qui récupère les informations de l'image
@@ -28,24 +28,25 @@ namespace Forms_projet_info
         {
             try
             {
-                byte[] myfile = File.ReadAllBytes(path);
+                byte[] myfile = File.ReadAllBytes(path); //Lit les bytes du fichier
 
-                byte[] widthByte = { myfile[18], myfile[19], myfile[20], myfile[21] };
+                byte[] widthByte = { myfile[18], myfile[19], myfile[20], myfile[21] }; //Largeur de l'image
                 int width = Convertir_Endian_To_Int(widthByte);
 
-                byte[] heightByte = { myfile[22], myfile[23], myfile[24], myfile[25] };
+                byte[] heightByte = { myfile[22], myfile[23], myfile[24], myfile[25] }; //Hauteur de l'image
                 int height = Convertir_Endian_To_Int(heightByte);
 
 
-                byte[] tailleByte = { myfile[2], myfile[3], myfile[4], myfile[5] };
+                byte[] tailleByte = { myfile[2], myfile[3], myfile[4], myfile[5] }; //Taille du fichier
                 int taille = Convertir_Endian_To_Int(tailleByte);
 
-                byte[] offsetByte = { myfile[10], myfile[11], myfile[12], myfile[13] };
+                byte[] offsetByte = { myfile[10], myfile[11], myfile[12], myfile[13] }; //Position du offset
                 int offset = Convertir_Endian_To_Int(offsetByte);
 
-                byte[] numberOfPixelsByte = { myfile[28], myfile[29] };
+                byte[] numberOfPixelsByte = { myfile[28], myfile[29] }; //Nombre de bits par couleurs
                 int numberOfPixels = Convertir_Endian_To_Int(numberOfPixelsByte);
 
+                //On assigne les valeurs aux propriétés
                 this.hauteur = height;
                 this.largeur = width;
                 this.offset = offset;
@@ -53,19 +54,19 @@ namespace Forms_projet_info
                 this.nombreDeBitsParCouleur = numberOfPixels;
                 this.type = (char)myfile[0] + "" + (char)myfile[1];
 
-                Pixel[,] tab = new Pixel[this.hauteur, this.largeur];
+                Pixel[,] tab = new Pixel[this.hauteur, this.largeur]; //Création d'une matrice de pixel vide
                 int nombrePourMultiple4 = (4 - (this.largeur * 3) % 4) % 4; //Cadeau par le prof
-                int position = this.offset;
+                int position = this.offset; 
                 for (int i = 0; i < tab.GetLength(0); i++)
                 {
                     for (int j = 0; j < tab.GetLength(1); j++)
                     {
-                        if(this.nombreDeBitsParCouleur == 32)
+                        if(this.nombreDeBitsParCouleur == 32) //Image avec alpha
                         {
-                            tab[i, j] = new Pixel(myfile[position], myfile[position + 1], myfile[position + 2], myfile[position + 3]);
+                            tab[i, j] = new Pixel(myfile[position], myfile[position + 1], myfile[position + 2], myfile[position + 3]); //Lecture d'un pixel, puis on positionne dans la matrice
                             position = position + 4;
                         }
-                        else
+                        else //Image sans alpha
                         {
                             tab[i, j] = new Pixel(myfile[position], myfile[position + 1], myfile[position + 2]);
                             position = position + 3;
@@ -92,8 +93,9 @@ namespace Forms_projet_info
         /// <param name="hauteur">Hauteur de l'image en pixel</param>
         public MyImage(int largeut, int hauteur)
         {
-            try
+            try //On génère une image vierge
             {
+                //Même chose que pour le premier constructeur, rien de spécial ici
                 this.largeur = largeut;
                 this.hauteur = hauteur;
                 this.type = "BM";
@@ -132,7 +134,7 @@ namespace Forms_projet_info
             int value = 0;
             for (int i = 0; i < tab.Length; i++)
             {
-                value += Convert.ToInt32(tab[i] * (Math.Pow(256, compteur)));
+                value += Convert.ToInt32(tab[i] * (Math.Pow(256, compteur))); //Permet de faire la conversion d'un byte[] en int
                 compteur++;
             }
             return value;
@@ -146,18 +148,6 @@ namespace Forms_projet_info
         /// <returns></returns>
         public byte[] Convertir_Int_To_Endian(int val, int taille)
         {
-            /*byte[] bytes = BitConverter.GetBytes(val);
-            if (bytes.Length != taille)
-            {
-                byte[] tab = new byte[taille];
-{{app.containerString}}
-
-                for (int i = 0; i < taille; i++)
-                {
-                    tab[i] = bytes[i];
-                }
-                return tab;
-            }*/
             byte[] bytes;
 
             switch (taille)
@@ -201,7 +191,8 @@ namespace Forms_projet_info
         /// <param name="file">Chemin du fichier</param>
         public void From_Image_To_File(string file)
         {
-            byte[] bytes = new byte[this.taille];
+            //On récupère les valeurs (int en tableau de byte)
+            byte[] bytes = new byte[this.taille]; //Chaîne de byte qui contient le fichier
             byte[] type = { (byte)this.type[0], (byte)this.type[1] };
             byte[] taille = Convertir_Int_To_Endian(this.taille, 4);
             byte[] offset = Convertir_Int_To_Endian(this.offset, 4);
@@ -209,6 +200,7 @@ namespace Forms_projet_info
             byte[] hauteur = Convertir_Int_To_Endian(this.hauteur, 4);
             byte[] nombreDeBitsParcouleur = Convertir_Int_To_Endian(this.nombreDeBitsParCouleur, 2);
 
+            //On assigne les valeurs
             for (int i = 18; i < 22; i++)
             {
                 bytes[i] = largeur[i - 18];
@@ -239,18 +231,18 @@ namespace Forms_projet_info
                 bytes[i] = type[i];
             }
 
-            bytes[14] = 40;
+            bytes[14] = 40; //éléments importants pour la compression, etc...
             bytes[26] = 1;
 
             int position = this.offset;
             int nombrePourMultiple4 = (4 - (this.largeur * 3) % 4) % 4; //Cadeau par le prof
 
-            for (int i = 0; i < this.image.GetLength(0); i++)
+            for (int i = 0; i < this.image.GetLength(0); i++) //On assigne les valeurs de l'image
             {
                 for (int j = 0; j < this.image.GetLength(1); j++)
                 {
 
-                    if (this.nombreDeBitsParCouleur == 32)
+                    if (this.nombreDeBitsParCouleur == 32) //Image avec alpha
                     {
                         bytes[position] = (byte)this.image[i, j].r;
                         bytes[position + 1] = (byte)this.image[i, j].g;
@@ -260,7 +252,7 @@ namespace Forms_projet_info
 
                         position = position + 4;
                     }
-                    else
+                    else //Image sans alpha
                     {
                         bytes[position] = (byte)this.image[i, j].r;
                         bytes[position + 1] = (byte)this.image[i, j].g;
@@ -273,10 +265,14 @@ namespace Forms_projet_info
 
             }
 
-            File.WriteAllBytes(file, bytes);
+            File.WriteAllBytes(file, bytes); //On écrit le fichier
         }
 
-        public byte[] From_Image_To_Array()
+        /// <summary>
+        /// Permet de retourner la suite de byte d'une image
+        /// </summary>
+        /// <returns>Retourne un tableau de byte d'une image Bitmap</returns>
+        public byte[] From_Image_To_Array() //Même chose qu'eau dessus sauf qu'on retourne le tableau de byte
         {
             byte[] bytes = new byte[this.taille];
             byte[] type = { (byte)this.type[0], (byte)this.type[1] };
@@ -488,21 +484,24 @@ namespace Forms_projet_info
         /// <param name="coeff">Coefficient pour la taille du QRCode</param>
         public static MyImage QRCode(string texte, int coeff, Color colorWheel)
         {
-            int version = 1;
-            if (texte.Length > 24) version = 2;
-            MyImage qrcode = new MyImage((17 + version * 4) * coeff, (17 + version * 4) * coeff);
+            int version = 1; //Version initiale du QRCode
+            if (texte.Length > 24) version = 2; //On passe à la version 2
+            MyImage qrcode = new MyImage((17 + version * 4) * coeff, (17 + version * 4) * coeff); //Générer un canva vierge pour contenir le QRCode
 
-            int[,] tab = new int[17 + version * 4, 17 + version * 4];
+            int[,] tab = new int[17 + version * 4, 17 + version * 4]; //Mega matrice qui contient plein de chiffre
+            /*
+             * - Chiffre 1 ou 2 pour mettre pixels noir et blanc qui CODENT le message
+             * Autres chiffres permettant de faire du débogage et ces chiffres seront les pixels qui servent
+             * à la détection du QRCode, donner le type de maskage utilisé, etc...
+             */
 
-
-
-            for (int i = 0; i < 9; i++)//ligne bleu
+            for (int i = 0; i < 9; i++) //Permet de "sécuriser" une zone, pour pas que l'algorithme de placement y touche
             {
                 tab[8, i] = 9;
                 tab[i, 8] = 9;
             }
 
-            //En haut à gauche
+            //Carré de détection en haut à gauche
             for (int i = 0; i < 7; i++)
             {
                 tab[i, 0] = 1;
@@ -585,7 +584,8 @@ namespace Forms_projet_info
 
 
             int compteurDelimitation = 0;
-
+            //Permet de poser les alignements patterns qui alternent entre noir et blanc
+            
             while (tab.GetLength(0) - 1 - 8 - compteurDelimitation > 7)
             {
                 if (compteurDelimitation % 2 == 0)
@@ -602,11 +602,12 @@ namespace Forms_projet_info
                 compteurDelimitation++;
             }
 
-            int[,] alignCoords = { { 6, 6 }, { 6, 18 }, { 18, 6 }, { 18, 18 } }; //For version 2 only
+            int[,] alignCoords = { { 6, 6 }, { 6, 18 }, { 18, 6 }, { 18, 18 } }; //For version 2 only. Pattern d'alignement
 
 
-            for (int i = 0; i < alignCoords.GetLength(0); i++)
+            for (int i = 0; i < alignCoords.GetLength(0); i++) //Permet de poser l'autre carré "alignement pattern" pour les versions 2 est +
             {
+                //Vérifie si on peut poser l'alignement pattern et pas que ça empiète sur des trucs du QRCode
                 if (AlignmentPatternGenerator(alignCoords[i, 0], alignCoords[i, 1], tab) && version > 1)
                 {
                     tab[alignCoords[i, 0], alignCoords[i, 1]] = 1;
@@ -633,6 +634,7 @@ namespace Forms_projet_info
             int[] correction = { 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0 }; //Correction pour L-0
 
 
+            //Pose les modules qui permettent de dire quel type de correction on utilise
             for (int i = 0; i < 9; i++)
             {
                 if (tab[8, i] == 9)
@@ -651,6 +653,7 @@ namespace Forms_projet_info
 
             }
 
+            //^même chose qu'au dessus
             for (int i = 0; i < 7; i++)
             {
                 if (correction[i] == 1) tab[tab.GetLength(0) - 1 - i, 8] = 1;
@@ -667,24 +670,29 @@ namespace Forms_projet_info
 
 
 
+            //Pose un carré noir qui est obligé d'être posé
             tab[(4 * version) + 9, 8] = 1; //Carré noir
 
-            for (int i = 0; i < tab.GetLength(0); i++) //1 noir, 2 ou 0 blanc, 9 bleu
+            //Et là petite boucle qui permet de poser nos modules des différents éléments d'au-dessus
+            //ça les ECRIT sur l'image
+            for (int i = 0; i < tab.GetLength(0); i++) //1 noir, 2 ou 0 blanc, 9 vert
             {
                 for (int j = 0; j < tab.GetLength(1); j++)
                 {
                     if (tab[i, j] == 1) setModule(i, j, 17 + version * 4);
                     //if (tab[i, j] == 2) setModule(i, j, 17+version * 4,8);
                     //if (tab[i, j] == 9) setModule(i, j, 17+version * 4, 9);
+                    //if (tab[i, j] == 7) setModule(i, j, 17+version * 4, 7);
+
                 }
             }
 
 
 
-            string longueurBitsTexte = Convert.ToString(texte.Length, 2);
+            string longueurBitsTexte = Convert.ToString(texte.Length, 2); //Longueur du texte en bits
 
 
-            if (longueurBitsTexte.Length < 9)
+            if (longueurBitsTexte.Length < 9) //C'est comme la fonction .PadLeft sauf que je ne la connaissais pas encore lol
             {
                 int longueur = 9 - longueurBitsTexte.Length;
                 for (int i = 0; i < longueur; i++)
@@ -693,10 +701,11 @@ namespace Forms_projet_info
                 }
             }
 
-            List<string> texteEnList = new List<string>();
-            List<string> listeDeBinaire = new List<string>();
+            List<string> texteEnList = new List<string>(); //Texte mais découpé par morceaux de deux lettres par deux lettrees
+            List<string> listeDeBinaire = new List<string>(); //Suite des lettres codés en binaire
 
-            for (int i = 0; i < texte.Length - 1; i++)
+            //On découpe le message par deux lettres par deux
+            for (int i = 0; i < texte.Length - 1; i++) 
             {
                 texteEnList.Add(texte[i] + "" + texte[(i + 1)]);
                 i++;
@@ -706,6 +715,7 @@ namespace Forms_projet_info
                 texteEnList.Add("" + texte[texte.Length - 1]);
             }
 
+            //Récupère le code alphanumérique de la lettre puis applique le calcul pour obtenir le code en binaire des lettres
             for (int i = 0; i < texteEnList.Count; i++)
             {
                 int somme = 0;
@@ -722,7 +732,7 @@ namespace Forms_projet_info
                             {
                                 value = 45 * 36;
                             }
-                            else if (int.TryParse("" + c[a], out int o)) value = 45 * Convert.ToInt32("" + c[a]);
+                            else if (int.TryParse("" + c[a], out int o)) value = 45 * Convert.ToInt32("" + c[a]); //Permet de convertir une lettre en code alphanumérique
                             else if (c[a] == '$') value = 45 * 37;
                             else if (c[a] == '%') value = 45 * 38;
                             else if (c[a] == '*') value = 45 * 39;
@@ -738,7 +748,7 @@ namespace Forms_projet_info
                             }
 
                         }
-                        else
+                        else //Même chose qu'en haut
                         {
                             if (c[a] == ' ')
                             {
@@ -782,43 +792,12 @@ namespace Forms_projet_info
                     }
                     somme += value;
                 }
-                lesBitsFinalement = Convert.ToString(somme, 2);
-                if (c.Length > 1) lesBitsFinalement = lesBitsFinalement.PadLeft(11, '0');
-                else lesBitsFinalement = lesBitsFinalement.PadLeft(6, '0');
+                lesBitsFinalement = Convert.ToString(somme, 2); //Convertit en binaire le résultat
+                if (c.Length > 1) lesBitsFinalement = lesBitsFinalement.PadLeft(11, '0'); //On applique un padLeft si c'est une combinaison de deux lettres
+                else lesBitsFinalement = lesBitsFinalement.PadLeft(6, '0'); //Sinon on applique ça si c'est seulement une lettre
 
-
-
-
-
-                /*if (lesBitsFinalement.Length < 11)
-                {
-                    int longueur = 11 - lesBitsFinalement.Length;
-                    for (int b = 0; b < longueur; b++)
-                    {
-                        lesBitsFinalement = "0" + lesBitsFinalement;
-                    }
-                }*/
                 listeDeBinaire.Add(lesBitsFinalement);
             }
-
-            //listeDeBinaire -> message encodé
-            // Mode Indicator: 0010 (alphanumérique)
-            //Longueur: var longueurBitsTexte
-            //Longueur du code final = 19*8 (d'après le tableau) = 152 bits
-
-
-
-            /*for(int n = 0; n < listeDeBinaire.Count; n++)
-            {
-                int compteur = 0;
-                byte[] tabDeByte = new byte[11];
-                for (int l = 0; l < listeDeBinaire[n].Length; l++)
-                {
-                    tabDeByte[compteur] = (byte)Convert.ToInt32(""+listeDeBinaire[n][l]);
-                    compteur++;
-                }
-                byte[] res = ReedSolomon.ReedSolomonAlgorithm.Encode(tabDeByte, 1);
-            }*/
 
             string bitPresqueTermine = "";
             bitPresqueTermine = "0010"; //On code le mode indicator
@@ -830,27 +809,30 @@ namespace Forms_projet_info
 
             int longueurFinal = version == 1 ? 152 : 272; //152 pour v1 272 pour v2
 
-            if (bitPresqueTermine.Length < longueurFinal - 4)
+            //ça fait la même chose que ce soit le if ou le else mais j'ai peur d'enlever et que ça casse tout donc on garde ça comme ça
+            if (bitPresqueTermine.Length < longueurFinal - 4) //On rajoute les 0 si on peut
             {
                 bitPresqueTermine = bitPresqueTermine + "0000";
             }
-            else if (bitPresqueTermine.Length < longueurFinal)
+            else if (bitPresqueTermine.Length < longueurFinal) //Sinon on complète avec des 0
             {
                 bitPresqueTermine.PadLeft(longueurFinal, '0');
             }
 
-            while (bitPresqueTermine.Length % 8 != 0)
+            while (bitPresqueTermine.Length % 8 != 0) //Si la longueur total de notre message est pas modulo 8 on rajoute un 0 jusqu'à ce que le soit
             {
                 bitPresqueTermine = bitPresqueTermine + "0";
             }
 
+
+            //On complète notre message par ces codes #MerciThonky.com
             int nombreDePavesDoctets = (longueurFinal - bitPresqueTermine.Length) / 8;
             string pave1 = "11101100";
             string pave2 = "00010001";
 
             for (int i = 0; i < nombreDePavesDoctets; i++)
             {
-                if (i % 2 == 0)
+                if (i % 2 == 0) //Permet d'alténer à chaque fois entre chaque pave1 ou pave2
                 {
                     bitPresqueTermine = bitPresqueTermine + pave1;
                 }
@@ -860,65 +842,70 @@ namespace Forms_projet_info
                 }
             }
 
-            byte[] tabDeByte = new byte[bitPresqueTermine.Length / 8];
+            byte[] tabDeByte = new byte[bitPresqueTermine.Length / 8]; //Permet de convertir notre chaîne de byte en un tableau
             for (int i = 0; i < tabDeByte.Length; ++i)
             {
-                tabDeByte[i] = Convert.ToByte(bitPresqueTermine.Substring(8 * i, 8), 2);
+                tabDeByte[i] = Convert.ToByte(bitPresqueTermine.Substring(8 * i, 8), 2); //On assigne
             }
-            byte[] result = ReedSolomon.ReedSolomonAlgorithm.Encode(tabDeByte, version == 1 ? 7 : 10, ReedSolomon.ErrorCorrectionCodeType.QRCode);
+            byte[] result = ReedSolomon.ReedSolomonAlgorithm.Encode(tabDeByte, version == 1 ? 7 : 10, ReedSolomon.ErrorCorrectionCodeType.QRCode); //On utilise l'algo de correction de ReedSolomon
 
             foreach (byte bit in result)
             {
-                bitPresqueTermine = bitPresqueTermine + Convert.ToString(bit, 2).PadLeft(8, '0');
+                bitPresqueTermine = bitPresqueTermine + Convert.ToString(bit, 2).PadLeft(8, '0'); //Et pour terminé on rajoute les 0 pour que ça fasse une chaîne de 8 octets sur la correction de ReedSolomon
             }
 
-            bool monte = true;
-            bool estADroite = true;
+            //Ma fierté, ce petit algo
+            bool monte = true; //Est-ce que le serpent monte ?
+            bool estADroite = true; //Serpent à droite ou à gauche ?
 
-            int x = tab.GetLength(0) - 1;
-            int y = tab.GetLength(0) - 1;
+            int x = tab.GetLength(0) - 1; //Position en x
+            int y = tab.GetLength(0) - 1; //Position en y
 
-            for (int k = 0; k < bitPresqueTermine.Length; k++)
+            for (int k = 0; k < bitPresqueTermine.Length; k++) //On parcours nos bits qu'on doit écrire
             {
-                if (y == 6) y--;
-                if (x < 0)
+                if (y == 6) y--; //Enft à cette position on pourra jamais poser, donc on "skip" ce passage pour éviter que le serpent soit cassé (y'a le timing pattern vertical ici).
+                //Eh oui si on réfléchit bien, vu que la côté d'un carré est impair, et que le serpent pose deux par deux, et bien on
+                //doit obligatoirement à un moment sauté un passage : et ce passage il est là, c'est ici où on a un des "timing pattern"
+                if (x < 0) //Si le serpent est en bas
                 {
-                    monte = !monte;
-                    x = 0;
-                    y = y - 2;
+                    monte = !monte; //Il remonte
+                    x = 0; //On le re-positionne
+                    y = y - 2; //Il se décale de deux cases
                 }
-                if (x > tab.GetLength(0) - 1)
+                if (x > tab.GetLength(0) - 1) //S'il est en haut
                 {
-                    monte = !monte;
-                    x = tab.GetLength(0) - 1;
-                    y = y - 2;
+                    monte = !monte; //Il redescend
+                    x = tab.GetLength(0) - 1; //On le re-positionne
+                    y = y - 2; //Il se décale de deux cases
                 }
 
-                if (tab[x, y] == 0)
+                if (tab[x, y] == 0) //Si la case est libre
                 {
-                    if (bitPresqueTermine[k] == '1')
+                    if (bitPresqueTermine[k] == '1') //Si le bit actuel est 1
                     {
-                        tab[x, y] = 10;
-                        setModule(x, y, 17 + version * 4);
+                        tab[x, y] = 10; //Bah on dit "ok", et on dit qu'on a posé un pixel noir ici
+                        setModule(x, y, 17 + version * 4); //On ECRIT le pixel noir sur l'image
                     }
-                    else tab[x, y] = 20;
+                    else tab[x, y] = 20; //Sinon bah on pose un pixel blanc, mais on écrit rien vu que l'image est blanche de base
                 }
-                else k--;
-                if (monte)
+                else k--; //Si case pas dispo, on recule de 1 dans notre boucle for
+                
+                //Ici on fait déplacer notre serpent
+                if (monte) //Si ça monte
                 {
-                    if (estADroite)
+                    if (estADroite) //Si c'est à droite
                     {
-                        y--;
-                        estADroite = false;
+                        y--; //hop à gauche
+                        estADroite = false; //Bah il est plus à droite
                     }
-                    else
+                    else //Sinon
                     {
-                        y++;
-                        x--;
-                        estADroite = true;
+                        y++; //Hop à droite
+                        x--; //Il monte
+                        estADroite = true; //Il est à droite (logique)
                     }
                 }
-                else
+                else //Même chose sauf que là il descend
                 {
                     if (estADroite)
                     {
@@ -933,6 +920,10 @@ namespace Forms_projet_info
                     }
                 }
             }
+
+            //On applique le Mask Pattern de niveau 0
+            //If the formula below is true for a given row/column coordinate, switch the bit at that coordinate
+            //(row + column) mod 2 == 0
 
             for (int i = 0; i < tab.GetLength(0); i++)
             {
@@ -958,40 +949,9 @@ namespace Forms_projet_info
                 }
             }
 
-            //01000: Correction L mask 0
-            /*int index = 0;
-            int secondIndex = 7;
-            int[] correction = { 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0 }; //Correction pour L-0
-
-
-            for (int i = 0; i < 9; i++)
-            {
-                if(tab[8,i] == 9)
-                {
-                    if(correction[index] == 1) setModule(8, i,17+version*4);
-                    index++;
-                }
-
-                if(tab[8-i,8] == 9)
-                {
-                    if(correction[secondIndex] == 1) setModule(8 - i, 8,17+version*4);
-                    secondIndex++;
-                }                
-
-            }
-
-            for(int i = 0; i < 7; i++)
-            {
-                if(correction[i] == 1) setModule(tab.GetLength(0)-1 - i, 8,17+version*4);
-            }
-
-            for (int i = 0; i < 8; i++)
-            {
-                if (correction[i + 7] == 1) setModule(8, tab.GetLength(0) - 1-7 + i,17+version*4);
-            }*/
-
-            return qrcode;
+            return qrcode; //On retourne le QRCode
             
+            //Permet de place un module sur le QRCode
             void setModule(int coordX, int coordY, int taille, int color = 0)
             {
                 int module = qrcode.largeur / taille;
@@ -999,25 +959,24 @@ namespace Forms_projet_info
                 {
                     for (int j = 0; j < module; j++)
                     {
+                        ///Les différentes couleurs sont juste pour le debug
                         if (color == 0) qrcode.image[qrcode.hauteur - 1 - (i + coordX * module), j + coordY * module] = new Pixel(colorWheel.B, colorWheel.G, colorWheel.R);
-                        //if(color == 9) this.image[this.hauteur - 1 - (i + x * module), j + y * module] = new Pixel(0, 0, 255);
+                        if (color == 9) qrcode.image[qrcode.hauteur - 1 - (i + coordX * module), j + coordY * module] = new Pixel(0, 0, 255);
                         if (color == 8) qrcode.image[qrcode.hauteur - 1 - (i + coordX * module), j + coordY * module] = new Pixel(0, 255, 0);
                         if (color == 7) qrcode.image[qrcode.hauteur - 1 - (i + coordX * module), j + coordY * module] = new Pixel(255, 0, 0);
                         if (color == 15) qrcode.image[qrcode.hauteur - 1 - (i + coordX * module), j + coordY * module] = new Pixel(255, 255, 255);
-
-
-                        //if (color == 5) this.image[this.hauteur - 1 - (i + x * module), j + y * module] = new Pixel(122, 122, 122);
-
 
                     }
                 }
             }
 
+            //Position de la lettre en code alphanumérique
             int AlphabetPosition(char c)
             {
                 return char.ToUpper(c) - 64;//index == 1
             }
 
+            //Fonction qui dit si l'espace est libre pour l'alignement pattern
             bool AlignmentPatternGenerator(int coordX, int coordY, int[,] tableau)
             {
                 bool isAvailable = true;
@@ -1041,6 +1000,12 @@ namespace Forms_projet_info
 
         }
 
+        /// <summary>
+        /// Permet de générer un QRCode avec une image au centre de celui-ci
+        /// </summary>
+        /// <param name="QRCode">QRCode généré</param>
+        /// <param name="logo">Image à mettre au centre</param>
+        /// <returns></returns>
         public static MyImage ImageDansQrCode(MyImage QRCode, MyImage logo)
         {
             int hauteur = QRCode.Hauteur;
@@ -1110,6 +1075,9 @@ namespace Forms_projet_info
             }
         }
 
+        /// <summary>
+        /// Symmétrie sur l'axe des Y
+        /// </summary>
         public void SymmetrieY()
         {
             Pixel[,] symmetrie = new Pixel[this.image.GetLength(0), this.image.GetLength(1)];
@@ -1123,6 +1091,9 @@ namespace Forms_projet_info
             this.image = symmetrie;
         }
 
+        /// <summary>
+        /// Symmétrie sur l'axe des X
+        /// </summary>
         public void SymmetrieX()
         {
             Pixel[,] symmetrie = new Pixel[this.image.GetLength(0), this.image.GetLength(1)];
@@ -1136,6 +1107,9 @@ namespace Forms_projet_info
             this.image = symmetrie;
         }
 
+        /// <summary>
+        /// Symmétrie sur l'axe des X et Y
+        /// </summary>
         public void SymmetrieXY()
         {
             Pixel[,] symmetrie = new Pixel[this.image.GetLength(0), this.image.GetLength(1)];
@@ -1225,6 +1199,10 @@ namespace Forms_projet_info
 
         }
 
+        /// <summary>
+        /// Fonction qui permet de rétrécir une image
+        /// </summary>
+        /// <param name="valeur">Coefficient de rétrécissement</param>
         public void Rétrécissement(int valeur)
         {
             this.largeur = this.largeur / valeur;
@@ -1271,45 +1249,10 @@ namespace Forms_projet_info
             this.image = petit;
         }
 
-        public void Flou(int valeur)
-        {
-            Pixel[,] newImage = new Pixel[this.image.GetLength(0), this.image.GetLength(1)];
-
-            for (int k = 0; k < valeur; k++)
-            {
-                for (int i = 0; i < newImage.GetLength(0); i++)
-                {
-                    for (int j = 0; j < newImage.GetLength(1); j++)
-                    {
-                        if (i < 1 || j < 1 || (i + 1 == newImage.GetLength(0)) || (j + 1 == newImage.GetLength(1)))
-                        {
-                            newImage[i, j] = this.image[i, j];
-                        }
-                        else
-                        {
-                            Pixel sum = this.image[i - 1, j + 1] + // Top left
-               this.image[i + 0, j + 1] + // Top center
-               this.image[i + 1, j + 1] + // Top right
-               this.image[i - 1, j + 0] + // Mid left
-               this.image[i + 1, j + 0] + // Mid right
-               this.image[i - 1, j - 1] + // Low left
-               this.image[i + 0, j - 1] + // Low center
-               this.image[i + 1, j - 1];  // Low right
-
-
-
-                            newImage[i, j] = sum / 8;
-
-
-
-
-                        }
-                    }
-                }
-                this.image = newImage;
-            }
-        }
-
+        /// <summary>
+        /// Fonction permettant de faire une convolution sur n'importe quelle image
+        /// </summary>
+        /// <param name="Noyau">Matrice de convolution appliqué à l'image</param>
         public void Convolution(double[,] Noyau)
         {
             int largeur = image.GetLength(1);
@@ -1324,6 +1267,14 @@ namespace Forms_projet_info
             }
             this.image = img;
         }
+
+        /// <summary>
+        /// Permet de faire la somme pour la fonction convolution
+        /// </summary>
+        /// <param name="noyau">Matrice de convolution</param>
+        /// <param name="ligne">Ligne où s'effectue le calcul</param>
+        /// <param name="colonne">Colonne où s'effectue le calcul</param>
+        /// <returns></returns>
         public Pixel Somme(double[,] noyau, int ligne, int colonne)
         {
 
@@ -1375,6 +1326,12 @@ namespace Forms_projet_info
             return couleur;
         }
 
+        /// <summary>
+        /// Génère une fractale 
+        /// </summary>
+        /// <param name="hauteur">hauteur de l'image en pixel</param>
+        /// <param name="largeur">largeur de l'image en pixel</param>
+        /// <returns></returns>
         public static MyImage Fractale(int hauteur, int largeur)
         {
             int limite = 500;
@@ -1408,6 +1365,10 @@ namespace Forms_projet_info
 
         }
 
+        /// <summary>
+        /// Rotation d'une image de n'importe quel degré
+        /// </summary>
+        /// <param name="angle">Angle de rotation en degré</param>
         public void Rotation(double angle)
         {
 
@@ -1676,7 +1637,9 @@ namespace Forms_projet_info
                 for (int j = 0; j < longueur; j++)
                 {
 
-                    this.image[i, j] = Retrouver(this.image[i, j]);
+                   
+                        this.image[i, j] = Retrouver(this.image[i, j]);
+                    
 
                 }
             }

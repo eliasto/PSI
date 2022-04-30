@@ -90,6 +90,8 @@ namespace Forms_projet_info
             this.button26 = new System.Windows.Forms.Button();
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.button34 = new System.Windows.Forms.Button();
+            this.button29 = new System.Windows.Forms.Button();
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
@@ -113,15 +115,24 @@ namespace Forms_projet_info
             this.label4 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.textBox13 = new System.Windows.Forms.TextBox();
+            this.textBox12 = new System.Windows.Forms.TextBox();
+            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.pageSetupDialog1 = new System.Windows.Forms.PageSetupDialog();
-            this.button29 = new System.Windows.Forms.Button();
-            this.button34 = new System.Windows.Forms.Button();
-            this.label17 = new System.Windows.Forms.Label();
-            this.textBox11 = new System.Windows.Forms.TextBox();
-            this.textBox12 = new System.Windows.Forms.TextBox();
-            this.textBox13 = new System.Windows.Forms.TextBox();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.label19 = new System.Windows.Forms.Label();
+            this.button35 = new System.Windows.Forms.Button();
+            this.pictureBox12 = new System.Windows.Forms.PictureBox();
+            this.button36 = new System.Windows.Forms.Button();
+            this.label18 = new System.Windows.Forms.Label();
+            this.pictureBox11 = new System.Windows.Forms.PictureBox();
+            this.button37 = new System.Windows.Forms.Button();
+            this.button38 = new System.Windows.Forms.Button();
+            this.textBox14 = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -145,6 +156,9 @@ namespace Forms_projet_info
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.tabPage5.SuspendLayout();
+            this.tabPage7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -154,6 +168,7 @@ namespace Forms_projet_info
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage7);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Controls.Add(this.tabPage4);
@@ -565,9 +580,9 @@ namespace Forms_projet_info
             // 
             // button22
             // 
-            this.button22.Location = new System.Drawing.Point(591, 85);
+            this.button22.Location = new System.Drawing.Point(591, 93);
             this.button22.Name = "button22";
-            this.button22.Size = new System.Drawing.Size(89, 50);
+            this.button22.Size = new System.Drawing.Size(149, 34);
             this.button22.TabIndex = 35;
             this.button22.Text = "Renforcement de bord";
             this.button22.UseVisualStyleBackColor = true;
@@ -719,6 +734,11 @@ namespace Forms_projet_info
             this.numericUpDown4.Name = "numericUpDown4";
             this.numericUpDown4.Size = new System.Drawing.Size(120, 22);
             this.numericUpDown4.TabIndex = 4;
+            this.numericUpDown4.Value = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
             this.numericUpDown4.ValueChanged += new System.EventHandler(this.numericUpDown4_ValueChanged);
             // 
             // numericUpDown3
@@ -732,6 +752,11 @@ namespace Forms_projet_info
             this.numericUpDown3.Name = "numericUpDown3";
             this.numericUpDown3.Size = new System.Drawing.Size(120, 22);
             this.numericUpDown3.TabIndex = 3;
+            this.numericUpDown3.Value = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
             this.numericUpDown3.ValueChanged += new System.EventHandler(this.numericUpDown3_ValueChanged);
             // 
             // button27
@@ -783,6 +808,28 @@ namespace Forms_projet_info
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Cacher/Décoder";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // button34
+            // 
+            this.button34.Enabled = false;
+            this.button34.Location = new System.Drawing.Point(643, 480);
+            this.button34.Name = "button34";
+            this.button34.Size = new System.Drawing.Size(182, 30);
+            this.button34.TabIndex = 12;
+            this.button34.Text = "Sauvegarder le résultat";
+            this.button34.UseVisualStyleBackColor = true;
+            this.button34.Click += new System.EventHandler(this.button34_Click);
+            // 
+            // button29
+            // 
+            this.button29.Enabled = false;
+            this.button29.Location = new System.Drawing.Point(334, 316);
+            this.button29.Name = "button29";
+            this.button29.Size = new System.Drawing.Size(159, 68);
+            this.button29.TabIndex = 11;
+            this.button29.Text = "Décoder";
+            this.button29.UseVisualStyleBackColor = true;
+            this.button29.Click += new System.EventHandler(this.button29_Click_1);
             // 
             // label16
             // 
@@ -1025,57 +1072,20 @@ namespace Forms_projet_info
             this.tabPage5.Text = "Crédits";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // printDocument1
+            // textBox13
             // 
-            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
-            // 
-            // button29
-            // 
-            this.button29.Enabled = false;
-            this.button29.Location = new System.Drawing.Point(334, 316);
-            this.button29.Name = "button29";
-            this.button29.Size = new System.Drawing.Size(159, 68);
-            this.button29.TabIndex = 11;
-            this.button29.Text = "Décoder";
-            this.button29.UseVisualStyleBackColor = true;
-            this.button29.Click += new System.EventHandler(this.button29_Click_1);
-            // 
-            // button34
-            // 
-            this.button34.Enabled = false;
-            this.button34.Location = new System.Drawing.Point(643, 480);
-            this.button34.Name = "button34";
-            this.button34.Size = new System.Drawing.Size(182, 30);
-            this.button34.TabIndex = 12;
-            this.button34.Text = "Sauvegarder le résultat";
-            this.button34.UseVisualStyleBackColor = true;
-            this.button34.Click += new System.EventHandler(this.button34_Click);
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(-214, 107);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(0, 25);
-            this.label17.TabIndex = 0;
-            this.label17.Click += new System.EventHandler(this.label17_Click);
-            // 
-            // textBox11
-            // 
-            this.textBox11.BackColor = System.Drawing.SystemColors.Window;
-            this.textBox11.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox11.Location = new System.Drawing.Point(209, 185);
-            this.textBox11.Multiline = true;
-            this.textBox11.Name = "textBox11";
-            this.textBox11.ReadOnly = true;
-            this.textBox11.Size = new System.Drawing.Size(533, 80);
-            this.textBox11.TabIndex = 1;
-            this.textBox11.Text = "Ce programme a été réalisé dans le cadre du projet scientifique d\'informatique du" +
-    " S4 à l\'ESILV.";
-            this.textBox11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox11.TextChanged += new System.EventHandler(this.textBox11_TextChanged);
+            this.textBox13.BackColor = System.Drawing.SystemColors.Window;
+            this.textBox13.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox13.Location = new System.Drawing.Point(134, 475);
+            this.textBox13.Multiline = true;
+            this.textBox13.Name = "textBox13";
+            this.textBox13.ReadOnly = true;
+            this.textBox13.Size = new System.Drawing.Size(692, 34);
+            this.textBox13.TabIndex = 3;
+            this.textBox13.Text = "Merci à ELLUL Aline et CHENDEB Safwan pour leur aide.";
+            this.textBox13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox13.TextChanged += new System.EventHandler(this.textBox13_TextChanged);
             // 
             // textBox12
             // 
@@ -1093,20 +1103,152 @@ namespace Forms_projet_info
             this.textBox12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBox12.TextChanged += new System.EventHandler(this.textBox12_TextChanged);
             // 
-            // textBox13
+            // textBox11
             // 
-            this.textBox13.BackColor = System.Drawing.SystemColors.Window;
-            this.textBox13.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox13.Location = new System.Drawing.Point(134, 475);
-            this.textBox13.Multiline = true;
-            this.textBox13.Name = "textBox13";
-            this.textBox13.ReadOnly = true;
-            this.textBox13.Size = new System.Drawing.Size(692, 34);
-            this.textBox13.TabIndex = 3;
-            this.textBox13.Text = "Merci à ELLUL Aline et CHENDEB Safwan pour leur aide.";
-            this.textBox13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox13.TextChanged += new System.EventHandler(this.textBox13_TextChanged);
+            this.textBox11.BackColor = System.Drawing.SystemColors.Window;
+            this.textBox11.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox11.Location = new System.Drawing.Point(209, 185);
+            this.textBox11.Multiline = true;
+            this.textBox11.Name = "textBox11";
+            this.textBox11.ReadOnly = true;
+            this.textBox11.Size = new System.Drawing.Size(533, 80);
+            this.textBox11.TabIndex = 1;
+            this.textBox11.Text = "Ce programme a été réalisé dans le cadre du projet scientifique d\'informatique du" +
+    " S4 à l\'ESILV.";
+            this.textBox11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox11.TextChanged += new System.EventHandler(this.textBox11_TextChanged);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(-214, 107);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(0, 25);
+            this.label17.TabIndex = 0;
+            this.label17.Click += new System.EventHandler(this.label17_Click);
+            // 
+            // printDocument1
+            // 
+            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
+            // 
+            // tabPage7
+            // 
+            this.tabPage7.Controls.Add(this.label20);
+            this.tabPage7.Controls.Add(this.textBox14);
+            this.tabPage7.Controls.Add(this.button38);
+            this.tabPage7.Controls.Add(this.button37);
+            this.tabPage7.Controls.Add(this.label18);
+            this.tabPage7.Controls.Add(this.pictureBox11);
+            this.tabPage7.Controls.Add(this.label19);
+            this.tabPage7.Controls.Add(this.button35);
+            this.tabPage7.Controls.Add(this.pictureBox12);
+            this.tabPage7.Controls.Add(this.button36);
+            this.tabPage7.Location = new System.Drawing.Point(4, 25);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Size = new System.Drawing.Size(956, 536);
+            this.tabPage7.TabIndex = 6;
+            this.tabPage7.Text = "Rétrécissement / Agrandissement";
+            this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(21, 23);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(83, 16);
+            this.label19.TabIndex = 27;
+            this.label19.Text = "Votre image:";
+            // 
+            // button35
+            // 
+            this.button35.Enabled = false;
+            this.button35.Location = new System.Drawing.Point(407, 446);
+            this.button35.Name = "button35";
+            this.button35.Size = new System.Drawing.Size(152, 39);
+            this.button35.TabIndex = 26;
+            this.button35.Text = "Enregistrement";
+            this.button35.UseVisualStyleBackColor = true;
+            this.button35.Visible = false;
+            this.button35.Click += new System.EventHandler(this.button35_Click_1);
+            // 
+            // pictureBox12
+            // 
+            this.pictureBox12.Location = new System.Drawing.Point(24, 51);
+            this.pictureBox12.Name = "pictureBox12";
+            this.pictureBox12.Size = new System.Drawing.Size(351, 434);
+            this.pictureBox12.TabIndex = 24;
+            this.pictureBox12.TabStop = false;
+            this.pictureBox12.Click += new System.EventHandler(this.pictureBox12_Click);
+            // 
+            // button36
+            // 
+            this.button36.Location = new System.Drawing.Point(404, 231);
+            this.button36.Name = "button36";
+            this.button36.Size = new System.Drawing.Size(165, 41);
+            this.button36.TabIndex = 23;
+            this.button36.Text = "Choisir le ficher";
+            this.button36.UseVisualStyleBackColor = true;
+            this.button36.Click += new System.EventHandler(this.button36_Click);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(596, 23);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(56, 16);
+            this.label18.TabIndex = 29;
+            this.label18.Text = "Résultat";
+            this.label18.Click += new System.EventHandler(this.label18_Click);
+            // 
+            // pictureBox11
+            // 
+            this.pictureBox11.Location = new System.Drawing.Point(599, 51);
+            this.pictureBox11.Name = "pictureBox11";
+            this.pictureBox11.Size = new System.Drawing.Size(351, 434);
+            this.pictureBox11.TabIndex = 28;
+            this.pictureBox11.TabStop = false;
+            this.pictureBox11.Click += new System.EventHandler(this.pictureBox11_Click);
+            // 
+            // button37
+            // 
+            this.button37.Location = new System.Drawing.Point(404, 51);
+            this.button37.Name = "button37";
+            this.button37.Size = new System.Drawing.Size(155, 29);
+            this.button37.TabIndex = 30;
+            this.button37.Text = "Agrandir";
+            this.button37.UseVisualStyleBackColor = true;
+            this.button37.Visible = false;
+            this.button37.Click += new System.EventHandler(this.button37_Click);
+            // 
+            // button38
+            // 
+            this.button38.Location = new System.Drawing.Point(404, 120);
+            this.button38.Name = "button38";
+            this.button38.Size = new System.Drawing.Size(155, 29);
+            this.button38.TabIndex = 31;
+            this.button38.Text = "Rétrécir";
+            this.button38.UseVisualStyleBackColor = true;
+            this.button38.Visible = false;
+            this.button38.Click += new System.EventHandler(this.button38_Click);
+            // 
+            // textBox14
+            // 
+            this.textBox14.Location = new System.Drawing.Point(459, 86);
+            this.textBox14.Name = "textBox14";
+            this.textBox14.Size = new System.Drawing.Size(100, 22);
+            this.textBox14.TabIndex = 32;
+            this.textBox14.TextChanged += new System.EventHandler(this.textBox14_TextChanged);
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(407, 89);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(46, 16);
+            this.label20.TabIndex = 33;
+            this.label20.Text = "Valeur";
             // 
             // Form1
             // 
@@ -1148,6 +1290,10 @@ namespace Forms_projet_info
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
+            this.tabPage7.ResumeLayout(false);
+            this.tabPage7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1245,6 +1391,17 @@ namespace Forms_projet_info
         private System.Windows.Forms.TextBox textBox11;
         private System.Windows.Forms.TextBox textBox12;
         private System.Windows.Forms.TextBox textBox13;
+        private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.PictureBox pictureBox11;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Button button35;
+        private System.Windows.Forms.PictureBox pictureBox12;
+        private System.Windows.Forms.Button button36;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox textBox14;
+        private System.Windows.Forms.Button button38;
+        private System.Windows.Forms.Button button37;
     }
 }
 

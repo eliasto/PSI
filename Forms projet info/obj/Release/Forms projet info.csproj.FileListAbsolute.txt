@@ -12,3 +12,4 @@ C:\Users\elias\Desktop\Forms projet info\Forms projet info\bin\Release\Forms pro
 C:\Users\elias\Desktop\Forms projet info\Forms projet info\obj\Release\Forms projet info.exe.manifest
 C:\Users\elias\Desktop\Forms projet info\Forms projet info\obj\Release\Forms projet info.application
 C:\Users\elias\Desktop\Forms projet info\Forms projet info\obj\Release\Forms projet info.csproj.AssemblyReference.cache
+C:\Users\elias\Desktop\Forms projet info\Forms projet info\obj\Release\Forms projet info.csproj.SuggestedBindingRedirects.cache
