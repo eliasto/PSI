@@ -355,10 +355,9 @@ namespace Forms_projet_info
         /// </summary>
         public MyImage Histogramme(int couleur)
         {
-            
-
             int max = 0;
 
+            //Créer la matrice de l'histogramme et le remplis de la couleur que l'on veut avec se densité allant de 0 à 255
             int[,] matrice = new int[this.hauteur, this.largeur];
             for (int i = 0; i < this.hauteur; i++)
             {
@@ -378,8 +377,9 @@ namespace Forms_projet_info
                     }
                 }
             }
-            int compteur = 0;
+            int compteur = 0; //Pour connaître le nombre d'itération 
 
+            //Cherche le mew d'itération (entre 0 et 255)
             for (int k = 0; k < 256; k++)
             {
                 compteur = 0;
@@ -400,9 +400,9 @@ namespace Forms_projet_info
                 }
             }
             compteur = 0;
-            Pixel[,] histo = new Pixel[max, 256];
+            Pixel[,] histo = new Pixel[max, 256]; //Crée l'image en couleur de l'histogramme
 
-            for (int i = 0; i < max; i++)
+            for (int i = 0; i < max; i++) // Initialisation de l'image en noir
             {
                 for (int j = 0; j < 256; j++)
                 {
@@ -412,7 +412,7 @@ namespace Forms_projet_info
             for (int k = 0; k < 256; k++)
             {
                 compteur = 0;
-                for (int i = 0; i < hauteur; i++)
+                for (int i = 0; i < hauteur; i++) //Nombre d'itération de chaque densité de la couleur
                 {
                     for (int j = 0; j < largeur; j++)
                     {
@@ -422,19 +422,19 @@ namespace Forms_projet_info
                         }
                     }
                 }
-                for (int i = 0; i < compteur; i++)
+                for (int i = 0; i < compteur; i++)  //Remplis l'image de l'histogramme par le nombre d'itération de la densité de la couleur
                 {
                     if (couleur == 1)
                     {
-                        histo[i, k] = new Pixel(255, 0, 0);
+                        histo[i, k] = new Pixel(255, 0, 0); //En rouge
                     }
                     if (couleur == 2)
                     {
-                        histo[i, k] = new Pixel(0, 255, 0);
+                        histo[i, k] = new Pixel(0, 255, 0); //En vert
                     }
                     if (couleur == 3)
                     {
-                        histo[i, k] = new Pixel(0, 0, 255);
+                        histo[i, k] = new Pixel(0, 0, 255); //En bleu
                     }
                 }
             }
@@ -1146,9 +1146,11 @@ namespace Forms_projet_info
                 this.taille = this.largeur * this.hauteur * 3 + this.offset;
             }
 
-            Pixel[,] tab = new Pixel[image.GetLength(0) * valeur, image.GetLength(1) * valeur];
+            Pixel[,] tab = new Pixel[image.GetLength(0) * valeur, image.GetLength(1) * valeur]; //nouvelle matrice de pixel avec la taille agrandit
+            //la boucle permet d'agrandir l'image
             for (int i = 0; i < this.image.GetLength(0); i++)
             {
+                //permet de cloner les pixels autour pour l'agrandir
                 for (int j = 0; j < this.image.GetLength(1); j++)
                 {
                     Pixel[,] mat = new Pixel[valeur, valeur];
@@ -1200,14 +1202,15 @@ namespace Forms_projet_info
         }
 
         /// <summary>
-        /// Fonction qui permet de rétrécir une image
+        /// Permet de rétrécir l'image
         /// </summary>
-        /// <param name="valeur">Coefficient de rétrécissement</param>
+        /// <param name="valeur"></param>
         public void Rétrécissement(int valeur)
         {
-            this.largeur = this.largeur / valeur;
-            this.hauteur = this.hauteur / valeur;
-            if (this.nombreDeBitsParCouleur == 32)
+            this.largeur = this.largeur / valeur;  //rétrécir la largeur
+            this.hauteur = this.hauteur / valeur;  //rétrécir la largeur
+
+            if (this.nombreDeBitsParCouleur == 32)  //image codé sur 32 bits
             {
                 this.taille = (this.largeur * this.hauteur * 4) + this.offset;
             }
@@ -1216,7 +1219,7 @@ namespace Forms_projet_info
                 this.taille = (this.largeur * this.hauteur * 3) + this.offset;
             }
 
-            Pixel[,] petit = new Pixel[this.hauteur, this.largeur];
+            Pixel[,] petit = new Pixel[this.hauteur, this.largeur]; //matrice rétrécie
 
             for (int i = 0; i < this.hauteur; i++)
             {
@@ -1227,6 +1230,7 @@ namespace Forms_projet_info
                     int bleu = 0;
                     int alpha = 0;
                     Pixel a;
+                    //la boucle va permettre de faire la somme de la densité des couleurs des pixels côte à côte
                     for (int k = 0; k < valeur; k++)
                     {
                         for (int l = 0; l < valeur; l++)
@@ -1234,14 +1238,15 @@ namespace Forms_projet_info
                             rouge = rouge + this.image[i * valeur + k, j * valeur + l].r;
                             vert = vert + this.image[i * valeur + k, j * valeur + l].g;
                             bleu = bleu + this.image[i * valeur + k, j * valeur + l].b;
-
+                            alpha = alpha + this.image[i * valeur + k, j * valeur + l].a;
                         }
                     }
-
+                    //divise chaque couleur de chaque pixel par la valeur à la puissance 2
                     rouge = Convert.ToInt32(rouge / (Math.Pow(valeur, 2)));
                     vert = Convert.ToInt32(vert / (Math.Pow(valeur, 2)));
                     bleu = Convert.ToInt32(bleu / (Math.Pow(valeur, 2)));
-                    a = new Pixel(rouge, vert, bleu);
+                    alpha = Convert.ToInt32(alpha / (Math.Pow(valeur, 2)));
+                    a = new Pixel(rouge, vert, bleu, alpha);
                     petit[i, j] = a;
 
                 }
@@ -1473,6 +1478,11 @@ namespace Forms_projet_info
             get { return this.image; }
         }
 
+        /// <summary>
+        /// Permet de cacher une image dans une autre
+        /// </summary>
+        /// <param name="Image1">Image qui va contenir l'autre image</param>
+        /// <param name="Image2">Image qui sera caché</param>
         public void Caché(Pixel[,] Image1, Pixel[,] Image2)
         {
             if (Image1.GetLength(0) < Image2.GetLength(0) || Image1.GetLength(1) < Image2.GetLength(1))
@@ -1485,18 +1495,18 @@ namespace Forms_projet_info
                 string longueur = ConvertIntToBinaryStringTaille(Image2.GetLength(0));
                 string largeur = ConvertIntToBinaryStringTaille(Image2.GetLength(1));
 
-                string bitR;
-                string bitG;
-                string bitB;
-                string bitA;
-                string bitR1;
-                string bitG1;
-                string bitB1;
-                string bitA1;
-                int R1;
-                int G1;
-                int B1;
-                int A1;
+                string bitR;  //string de bit rouge
+                string bitG;  //string de bit vert
+                string bitB;  //string de bit bleu
+                string bitA;  //string de bit alpha
+                string bitR1; //string de bit rouge de la nouvelle image  
+                string bitG1; //string de bit vert de la nouvelle image
+                string bitB1;  //string de bit bleu de la nouvelle image
+                string bitA1;  //string de bit alpha de la nouvelle image
+                int R1;  //densité du rouge  
+                int G1;  //densité du vert  
+                int B1;  //densité du bleu
+                int A1;  //densité du alpha
                 for (int i = 0; i < Image2.GetLength(0); i++)
                 {
                     bitR = "";
@@ -1552,13 +1562,17 @@ namespace Forms_projet_info
             }
 
         }
-
+        /// <summary>
+        /// Convertit les int (la taille) en bits
+        /// </summary>
+        /// <param name="value"> c'est la taille</param>
+        /// <returns></returns>
         public static string ConvertIntToBinaryStringTaille(int value)
         {
-            string binaryString = Convert.ToString(value, 2);
+            string binaryString = Convert.ToString(value, 2);  //Convertit en binaire
             int a = 16 - binaryString.Length;
             string result = "";
-            for (var index = 0; index < a; index++)
+            for (var index = 0; index < a; index++)  //Permet de rajouter les 0 manquants
             {
                 result = result + '0';
             }
@@ -1566,22 +1580,32 @@ namespace Forms_projet_info
             return result;
 
         }
+        /// <summary>
+        /// Convertit les int (densité de la couleur) en bits
+        /// </summary>
+        /// <param name="value">c'est la densité</param>
+        /// <returns></returns>
         public static string ConvertIntToBinaryString(int value)
         {
-            string binaryString = Convert.ToString(value, 2);
+            string binaryString = Convert.ToString(value, 2); //Convertit en binaire
 
             int a = 8 - (binaryString.Length);
 
             string result = "";
             for (var index = 0; index < a; index++)
             {
-                result = result + '0';
+                result = result + '0';  //Permet de rajouter les 0 manquants
             }
             result = result + binaryString;
             return result;
 
 
         }
+        /// <summary>
+        /// Convertit les btis en int
+        /// </summary>
+        /// <param name="bit"></param>
+        /// <returns></returns>
         public static int ConvertBinaryStringToInt(string bit)
         {
             int a;
@@ -1598,6 +1622,12 @@ namespace Forms_projet_info
             }
             return intensité;
         }
+        /// <summary>
+        /// Permet de mettre les dimensions dans un Pixel sur les bits de poids faible
+        /// </summary>
+        /// <param name="bits"></param>
+        /// <param name="couleur"></param>
+        /// <returns></returns>
         public static Pixel GarderTaille(string bits, Pixel couleur)
         {
             string nouveaubits;
@@ -1608,19 +1638,24 @@ namespace Forms_projet_info
             couleur.g = ConvertBinaryStringToInt(nouveaubits);
             nouveaubits = Convert.ToString(couleur.b, 2).Substring(0, 4) + bits.Substring(4, 4);
             couleur.b = ConvertBinaryStringToInt(nouveaubits);
-            nouveaubits = Convert.ToString(couleur.a, 2).PadLeft(4,'0').Substring(0, 4) + bits.Substring(0, 4);
+            nouveaubits = Convert.ToString(couleur.a, 2).PadLeft(4, '0').Substring(0, 4) + bits.Substring(0, 4);
             couleur.a = ConvertBinaryStringToInt(nouveaubits);  //pour le alpha les puissances les plus grandes
 
             return couleur;
         }
 
+
+        /// <summary>
+        /// Permet de retrouver l'image caché
+        /// </summary>
         public void Cherché()
         {
+            //Permet de retrouver la largeur de l'image 
             string a = ConvertIntToBinaryString(this.image[0, this.image.GetLength(1) - 1].a).Substring(4, 4);
             a = a + ConvertIntToBinaryString(this.image[0, this.image.GetLength(1) - 1].b).Substring(4, 4);
             a = a + ConvertIntToBinaryString(this.image[0, this.image.GetLength(1) - 1].g).Substring(4, 4);
             a = a + ConvertIntToBinaryString(this.image[0, this.image.GetLength(1) - 1].r).Substring(4, 4);
-
+            //Permet de retrouver la longueur de l'image 
             string b = ConvertIntToBinaryString(this.image[this.image.GetLength(0) - 1, this.image.GetLength(1) - 1].a).Substring(4, 4);
             b = b + ConvertIntToBinaryString(this.image[this.image.GetLength(0) - 1, this.image.GetLength(1) - 1].b).Substring(4, 4);
             b = b + ConvertIntToBinaryString(this.image[this.image.GetLength(0) - 1, this.image.GetLength(1) - 1].g).Substring(4, 4);
@@ -1630,23 +1665,20 @@ namespace Forms_projet_info
             int longueur = ConvertBinaryStringToInt(b);  //longueur de l'image caché
 
 
-
-
             for (int i = 0; i < largeur; i++)
             {
                 for (int j = 0; j < longueur; j++)
                 {
-
-                   
-                        this.image[i, j] = Retrouver(this.image[i, j]);
-                    
-
+                    this.image[i, j] = Retrouver(this.image[i, j]);
                 }
             }
-
         }
-
-        public static Pixel Retrouver(Pixel couleur)  //Permet de prendre les bits de poids faible (les bits de poids fort de base de l'image caché) et de les placer sur les bits de poids fort
+        /// <summary>
+        /// Permet de prendre les bits de poids faible (les bits de poids fort de base de l'image caché) et de les placer sur les bits de poids fort
+        /// </summary>
+        /// <param name="couleur"></param>
+        /// <returns></returns>
+        public static Pixel Retrouver(Pixel couleur)
         {
             string rouge = ConvertIntToBinaryString(couleur.r);
             string vert = ConvertIntToBinaryString(couleur.g);
@@ -1661,5 +1693,6 @@ namespace Forms_projet_info
 
         }
     }
+
 
 }
