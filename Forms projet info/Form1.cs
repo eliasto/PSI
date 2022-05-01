@@ -52,6 +52,7 @@ namespace Forms_projet_info
             {
                 groupBox1.Enabled = true;
                 groupBox2.Enabled = true;
+                button39.Visible = true;
                 label1.Visible = true;
                 label2.Visible = true;
                 label3.Visible = false;
@@ -500,8 +501,9 @@ namespace Forms_projet_info
         }
 
         private void button23_Click(object sender, EventArgs e)
-        {
+        { 
             MyImage histo = this.image.Histogramme(2);
+            this.image = histo;
             MemoryStream ms = new MemoryStream(histo.From_Image_To_Array());
             Image bitmap = Image.FromStream(ms);
 
@@ -513,6 +515,8 @@ namespace Forms_projet_info
         {
 
             MyImage histo = this.image.Histogramme(1);
+            this.image = histo;
+
             MemoryStream ms = new MemoryStream(histo.From_Image_To_Array());
             Image bitmap = Image.FromStream(ms);
 
@@ -524,6 +528,8 @@ namespace Forms_projet_info
         {
 
             MyImage histo = this.image.Histogramme(3);
+            this.image = histo;
+
             MemoryStream ms = new MemoryStream(histo.From_Image_To_Array());
             Image bitmap = Image.FromStream(ms);
 
@@ -852,7 +858,7 @@ namespace Forms_projet_info
                 // Displays the MessageBox.
                 result = MessageBox.Show(message, caption, buttons);
             }
-            catch
+            catch(Exception ee)
             {
                 string message1 = "Cette image ne peut pas être rétréci !";
                 string caption1 = "Erreur";
@@ -898,6 +904,23 @@ namespace Forms_projet_info
         private void textBox14_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button39_Click(object sender, EventArgs e)
+        {
+            List<string> infos = this.image.LecteurQrCode();
+
+            string message1 = "";
+            foreach(string info in infos)
+            {
+                message1 += info + "\n";
+            }
+            string caption1 = "Informations sur l'image";
+            MessageBoxButtons buttons1 = MessageBoxButtons.OK;
+            DialogResult result1;
+
+            // Displays the MessageBox.
+            result1 = MessageBox.Show(message1, caption1, buttons1);
         }
     }
 }

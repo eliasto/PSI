@@ -8,11 +8,18 @@ namespace Forms_projet_info
 {
     class Pixel
     {
-        private int R;
-        private int G;
-        private int B;
-        private int A;
+        private int R; //Pixel Rouge
+        private int G; //Pixel Vert
+        private int B; //Pixel Bleu
+        private int A; //Pixel Alpha
 
+        /// <summary>
+        /// Initialise un nouveau pixel (le alpha = 0 car toutes les images n'ont pas d'alpha)
+        /// </summary>
+        /// <param name="R">R</param>
+        /// <param name="G">Vert</param>
+        /// <param name="B">Bleu</param>
+        /// <param name="A">Alpha</param>
         public Pixel(int R, int G, int B, int A = 0)
         {
             this.R = R;
@@ -21,12 +28,21 @@ namespace Forms_projet_info
             this.A = A;
         }
 
+        /// <summary>
+        /// Retourne la moyenne des trois couleurs
+        /// </summary>
+        /// <returns></returns>
         public int Moyenne()
         {
             int moyenne = (this.R + this.G + this.B) / 3;
             return moyenne;
         }
 
+        /// <summary>
+        /// Même chose qu'au dessus sauf que cette fois ci on retourne un tableau de trois valeurs
+        /// </summary>
+        /// <param name="mat"></param>
+        /// <returns></returns>
         public static Pixel Moyenne_1(Pixel[,] mat)
         {
             Pixel moyenne;
@@ -52,6 +68,12 @@ namespace Forms_projet_info
             return moyenne;
         }
 
+        /// <summary>
+        /// Opérateur d'addition de deux pixels
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
         public static Pixel operator +(Pixel a, Pixel b)
         {
             int rMoyenne = b.R + a.R;
@@ -62,6 +84,12 @@ namespace Forms_projet_info
             return new Pixel(rMoyenne, gMoyenne, bMoyenne, aMoyenne);
         }
 
+        /// <summary>
+        /// Opérateur de division de deux pixels
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
         public static Pixel operator /(Pixel a, int b)
         {
             int rMoyenne = a.R / b;
@@ -71,7 +99,6 @@ namespace Forms_projet_info
 
             return new Pixel(rMoyenne, gMoyenne, bMoyenne, aMoyenne);
         }
-
 
         public int r
         {

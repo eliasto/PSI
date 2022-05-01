@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Forms projet info.exe" size="81344">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Forms projet info.exe" size="84928">
       <assemblyIdentity name="Forms projet info" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>9fat+Zw6fzbxouaznCkegadBXHryZQJk0Hvoq0Ic2r8=</dsig:DigestValue>
+        <dsig:DigestValue>yYmOTD+wG2dKHvE1/6Ejr0vmAlYJE/75Js5/2vMn6U8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

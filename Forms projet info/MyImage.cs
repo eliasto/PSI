@@ -863,7 +863,8 @@ namespace Forms_projet_info
 
             for (int k = 0; k < bitPresqueTermine.Length; k++) //On parcours nos bits qu'on doit écrire
             {
-                if (y == 6) y--; //Enft à cette position on pourra jamais poser, donc on "skip" ce passage pour éviter que le serpent soit cassé (y'a le timing pattern vertical ici).
+                if (y == 6) y--; //Enft à cette position on pourra jamais poser, donc on "skip" ce passage pour éviter que le serpent soit
+                                 //cassé (y'a le timing pattern vertical ici).
                 //Eh oui si on réfléchit bien, vu que la côté d'un carré est impair, et que le serpent pose deux par deux, et bien on
                 //doit obligatoirement à un moment sauté un passage : et ce passage il est là, c'est ici où on a un des "timing pattern"
                 if (x < 0) //Si le serpent est en bas
@@ -998,6 +999,294 @@ namespace Forms_projet_info
             }
 
 
+        }
+
+        /// <summary>
+        /// Petite fonction pour donner les infos sur le QRCode et pourquoi pas lire ce qu'il contient si je réussis
+        /// </summary>
+        /// <returns></returns>
+        public List<string> LecteurQrCode()
+        {
+            List<string> infos = new List<string>();
+            if(this.Hauteur == this.Largeur)
+            {
+                if(this.Hauteur%21 == 0)
+                {
+                    infos.Add("QRCode version 1");
+
+                    this.Rétrécissement(this.Hauteur / 21); //On réduit pour obtenir un carré de 21*21
+                    int[,] tab = new int[21,21];
+
+                    for(int i = 0; i < tab.GetLength(0); i++)
+                    {
+                        for(int j = 0; j < tab.GetLength(1); j++)
+                        {
+                            tab[i, j] = (this.image[i, j].Moyenne() > 122) ? 7 :8; //Vu que le QRCode peut avoir plusieurs couleurs, ici on mets un 10 si c'est blanc et 20 sinon 
+                        }
+                    }
+
+
+                    for (int i = 0; i < 9; i++) //Permet de "sécuriser" une zone, pour pas que l'algorithme de placement y touche
+                    {
+                        tab[8, i] = 9;
+                        tab[i, 8] = 9;
+                    }
+
+                    //Carré de détection en haut à gauche
+                    for (int i = 0; i < 7; i++)
+                    {
+                        tab[i, 0] = 1;
+                        tab[0, i] = 1;
+                        tab[6, i] = 1;
+                        tab[i, 6] = 1;
+
+                        tab[i, 7] = 2;
+                        tab[7, i] = 2;
+                    }
+                    tab[7, 7] = 2;
+                    for (int i = 0; i < 3; i++)
+                    {
+                        for (int j = 0; j < 3; j++)
+                        {
+                            tab[i + 2, j + 2] = 1;
+                        }
+                    }
+
+                    for (int i = 0; i < 5; i++)
+                    {
+                        tab[i + 1, 1] = 2;
+                        tab[i + 1, 5] = 2;
+                        tab[1, i + 1] = 2;
+                        tab[5, i + 1] = 2;
+
+                        tab[1, tab.GetLength(0) - 6 + i] = 2;
+                        tab[5, tab.GetLength(0) - 6 + i] = 2;
+                        tab[i + 1, tab.GetLength(0) - 6] = 2;
+                        tab[i + 1, tab.GetLength(0) - 2] = 2;
+
+                        tab[tab.GetLength(0) - 6, i + 1] = 2;
+                        tab[tab.GetLength(0) - 2, i + 1] = 2;
+                        tab[i + tab.GetLength(0) - 6, 1] = 2;
+                        tab[i + tab.GetLength(0) - 6, 5] = 2;
+
+                    }
+
+                    //En haut à droite
+                    for (int i = 0; i < 7; i++)
+                    {
+                        tab[6, tab.GetLength(0) - 7 + i] = 1;
+                        tab[0, tab.GetLength(0) - 7 + i] = 1;
+                        tab[i, tab.GetLength(0) - 7] = 1;
+                        tab[i, tab.GetLength(0) - 1] = 1;
+
+                        tab[i, tab.GetLength(0) - 8] = 2;
+                        tab[7, tab.GetLength(0) - 7 + i] = 2;
+                    }
+                    tab[7, tab.GetLength(0) - 8] = 2;
+
+                    for (int i = 0; i < 3; i++)
+                    {
+                        for (int j = 0; j < 3; j++)
+                        {
+                            tab[2 + i, tab.GetLength(0) - 5 + j] = 1;
+                        }
+                    }
+
+                    //En bas à gauche
+                    for (int i = 0; i < 7; i++)
+                    {
+                        tab[tab.GetLength(0) - 1 - 7, i] = 2;
+                        tab[i + tab.GetLength(0) - 1 - 6, 7] = 2;
+
+                        tab[tab.GetLength(0) - 1 - 6, i] = 1;
+                        tab[tab.GetLength(0) - 1, i] = 1;
+                        tab[i + tab.GetLength(0) - 1 - 6, 0] = 1;
+                        tab[i + tab.GetLength(0) - 1 - 6, 6] = 1;
+                    }
+                    tab[tab.GetLength(0) - 1 - 7, 7] = 2;
+
+                    for (int i = 0; i < 3; i++)
+                    {
+                        for (int j = 0; j < 3; j++)
+                        {
+                            tab[tab.GetLength(0) - 5 + i, 2 + j] = 1;
+                        }
+                    }
+
+
+                    int compteurDelimitation = 0;
+                    //Permet de poser les alignements patterns qui alternent entre noir et blanc
+
+                    while (tab.GetLength(0) - 1 - 8 - compteurDelimitation > 7)
+                    {
+                        if (compteurDelimitation % 2 == 0)
+                        {
+                            tab[tab.GetLength(0) - 1 - 8 - compteurDelimitation, 6] = 1;
+                            tab[6, tab.GetLength(0) - 1 - 8 - compteurDelimitation] = 1;
+
+                        }
+                        else
+                        {
+                            tab[tab.GetLength(0) - 1 - 8 - compteurDelimitation, 6] = 2;
+                            tab[6, tab.GetLength(0) - 1 - 8 - compteurDelimitation] = 2;
+                        }
+                        compteurDelimitation++;
+                    }
+
+                    //01000: Correction L mask 0
+                    int index = 0;
+                    int secondIndex = 7;
+                    int[] correction = { 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0 }; //Correction pour L-0
+
+
+                    //Pose les modules qui permettent de dire quel type de correction on utilise
+                    for (int i = 0; i < 9; i++)
+                    {
+                        if (tab[8, i] == 9)
+                        {
+                            if (correction[index] == 1) tab[8, i] = 1;
+                            else tab[8, i] = 2;
+                            index++;
+                        }
+
+                        if (tab[8 - i, 8] == 9)
+                        {
+                            if (correction[secondIndex] == 1) tab[8 - i, 8] = 1;
+                            else tab[8 - i, 8] = 2;
+                            secondIndex++;
+                        }
+
+                    }
+
+                    //^même chose qu'au dessus
+                    for (int i = 0; i < 7; i++)
+                    {
+                        if (correction[i] == 1) tab[tab.GetLength(0) - 1 - i, 8] = 1;
+                        else tab[tab.GetLength(0) - 1 - i, 8] = 2;
+                    }
+
+                    for (int i = 0; i < 8; i++)
+                    {
+                        if (correction[i + 7] == 1) tab[8, tab.GetLength(0) - 1 - 7 + i] = 1;
+                        else tab[8, tab.GetLength(0) - 1 - 7 + i] = 2;
+                    }
+
+
+
+
+
+                    //Pose un carré noir qui est obligé d'être posé
+                    tab[(4 * 1) + 9, 8] = 1; //Carré noir
+
+                    string cadre = "";
+                    for(int i = 0; i < tab.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < tab.GetLength(1); j++)
+                        {
+                            cadre += (tab[i,j] == 7 || tab[i,j] == 8) ? ""+tab[i, j] : "*";
+                        }
+                        cadre += "\n";
+                    }
+                    infos.Add(cadre);
+
+                    //On applique le Mask Pattern de niveau 0
+                    //If the formula below is true for a given row/column coordinate, switch the bit at that coordinate
+                    //(row + column) mod 2 == 0
+
+                    //for (int i = 0; i < tab.GetLength(0); i++)
+                    //{
+                    //    for (int j = 0; j < tab.GetLength(0); j++)
+                    //    {
+                    //            if ((i + j) % 2 == 0)
+                    //            {
+                    //                if (tab[i, j] == 20) tab[i, j] = 10;
+                    //                if (tab[i,j] == 10) tab[i, j] = 20;
+                    //            }
+                    //        }                        
+                    //}
+
+                    //Ma fierté, ce petit algo
+                    bool monte = true; //Est-ce que le serpent monte ?
+                    bool estADroite = true; //Serpent à droite ou à gauche ?
+                    string result = "";
+
+                    int x = tab.GetLength(0) - 1; //Position en x
+                    int y = tab.GetLength(0) - 1; //Position en y
+
+                    for (int k = 0; k < 208; k++) //On parcours nos bits qu'on doit écrire
+                    {
+                        if (y == 6) y--; //Enft à cette position on pourra jamais poser, donc on "skip" ce passage pour éviter que le serpent soit cassé (y'a le timing pattern vertical ici).
+                                         //Eh oui si on réfléchit bien, vu que la côté d'un carré est impair, et que le serpent pose deux par deux, et bien on
+                                         //doit obligatoirement à un moment sauté un passage : et ce passage il est là, c'est ici où on a un des "timing pattern"
+                        if (x < 0) //Si le serpent est en bas
+                        {
+                            monte = !monte; //Il remonte
+                            x = 0; //On le re-positionne
+                            y = y - 2; //Il se décale de deux cases
+                        }
+                        if (x > tab.GetLength(0) - 1) //S'il est en haut
+                        {
+                            monte = !monte; //Il redescend
+                            x = tab.GetLength(0) - 1; //On le re-positionne
+                            y = y - 2; //Il se décale de deux cases
+                        }
+
+                        if (tab[x, y] == 7 || tab[x,y] == 8) //Si la case est libre
+                        {
+                            result += (tab[x, y] == 7) ? "0" : "1";
+                        }
+                        else k--; //Si case pas dispo, on recule de 1 dans notre boucle for
+
+                        //Ici on fait déplacer notre serpent
+                        if (monte) //Si ça monte
+                        {
+                            if (estADroite) //Si c'est à droite
+                            {
+                                y--; //hop à gauche
+                                estADroite = false; //Bah il est plus à droite
+                            }
+                            else //Sinon
+                            {
+                                y++; //Hop à droite
+                                x--; //Il monte
+                                estADroite = true; //Il est à droite (logique)
+                            }
+                        }
+                        else //Même chose sauf que là il descend
+                        {
+                            if (estADroite)
+                            {
+                                y--;
+                                estADroite = false;
+                            }
+                            else
+                            {
+                                y++;
+                                x++;
+                                estADroite = true;
+                            }
+                        }
+                    }
+
+                    infos.Add("Message : " + result);
+
+
+                }
+                else if(this.Hauteur%25 == 0)
+                {
+                    infos.Add("QRCode version 2");
+                }
+                else
+                {
+                    infos.Add("Cette version de QRCode est supérieur à la version 2. Veuillez fournir un QRCode en version 1 ou 2.");
+                }
+            }
+            else
+            {
+                infos.Add("Erreur : Ce n'est pas un QRCode.");
+            }
+
+            return infos;
         }
 
         /// <summary>

@@ -34,6 +34,7 @@ namespace Forms_projet_info
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button39 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button25 = new System.Windows.Forms.Button();
@@ -57,6 +58,17 @@ namespace Forms_projet_info
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.label20 = new System.Windows.Forms.Label();
+            this.textBox14 = new System.Windows.Forms.TextBox();
+            this.button38 = new System.Windows.Forms.Button();
+            this.button37 = new System.Windows.Forms.Button();
+            this.label18 = new System.Windows.Forms.Label();
+            this.pictureBox11 = new System.Windows.Forms.PictureBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.button35 = new System.Windows.Forms.Button();
+            this.pictureBox12 = new System.Windows.Forms.PictureBox();
+            this.button36 = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -122,23 +134,15 @@ namespace Forms_projet_info
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.pageSetupDialog1 = new System.Windows.Forms.PageSetupDialog();
-            this.tabPage7 = new System.Windows.Forms.TabPage();
-            this.label19 = new System.Windows.Forms.Label();
-            this.button35 = new System.Windows.Forms.Button();
-            this.pictureBox12 = new System.Windows.Forms.PictureBox();
-            this.button36 = new System.Windows.Forms.Button();
-            this.label18 = new System.Windows.Forms.Label();
-            this.pictureBox11 = new System.Windows.Forms.PictureBox();
-            this.button37 = new System.Windows.Forms.Button();
-            this.button38 = new System.Windows.Forms.Button();
-            this.textBox14 = new System.Windows.Forms.TextBox();
-            this.label20 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tabPage7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
@@ -156,9 +160,6 @@ namespace Forms_projet_info
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.tabPage5.SuspendLayout();
-            this.tabPage7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -182,6 +183,7 @@ namespace Forms_projet_info
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button39);
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.label2);
@@ -197,6 +199,17 @@ namespace Forms_projet_info
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Editieur BitMap";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // button39
+            // 
+            this.button39.Location = new System.Drawing.Point(10, 494);
+            this.button39.Name = "button39";
+            this.button39.Size = new System.Drawing.Size(21, 24);
+            this.button39.TabIndex = 25;
+            this.button39.Text = "?";
+            this.button39.UseVisualStyleBackColor = true;
+            this.button39.Visible = false;
+            this.button39.Click += new System.EventHandler(this.button39_Click);
             // 
             // label3
             // 
@@ -442,6 +455,123 @@ namespace Forms_projet_info
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
+            // tabPage7
+            // 
+            this.tabPage7.Controls.Add(this.label20);
+            this.tabPage7.Controls.Add(this.textBox14);
+            this.tabPage7.Controls.Add(this.button38);
+            this.tabPage7.Controls.Add(this.button37);
+            this.tabPage7.Controls.Add(this.label18);
+            this.tabPage7.Controls.Add(this.pictureBox11);
+            this.tabPage7.Controls.Add(this.label19);
+            this.tabPage7.Controls.Add(this.button35);
+            this.tabPage7.Controls.Add(this.pictureBox12);
+            this.tabPage7.Controls.Add(this.button36);
+            this.tabPage7.Location = new System.Drawing.Point(4, 25);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Size = new System.Drawing.Size(956, 536);
+            this.tabPage7.TabIndex = 6;
+            this.tabPage7.Text = "Rétrécissement / Agrandissement";
+            this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(407, 89);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(46, 16);
+            this.label20.TabIndex = 33;
+            this.label20.Text = "Valeur";
+            // 
+            // textBox14
+            // 
+            this.textBox14.Location = new System.Drawing.Point(459, 86);
+            this.textBox14.Name = "textBox14";
+            this.textBox14.Size = new System.Drawing.Size(100, 22);
+            this.textBox14.TabIndex = 32;
+            this.textBox14.TextChanged += new System.EventHandler(this.textBox14_TextChanged);
+            // 
+            // button38
+            // 
+            this.button38.Location = new System.Drawing.Point(404, 120);
+            this.button38.Name = "button38";
+            this.button38.Size = new System.Drawing.Size(155, 29);
+            this.button38.TabIndex = 31;
+            this.button38.Text = "Rétrécir";
+            this.button38.UseVisualStyleBackColor = true;
+            this.button38.Visible = false;
+            this.button38.Click += new System.EventHandler(this.button38_Click);
+            // 
+            // button37
+            // 
+            this.button37.Location = new System.Drawing.Point(404, 51);
+            this.button37.Name = "button37";
+            this.button37.Size = new System.Drawing.Size(155, 29);
+            this.button37.TabIndex = 30;
+            this.button37.Text = "Agrandir";
+            this.button37.UseVisualStyleBackColor = true;
+            this.button37.Visible = false;
+            this.button37.Click += new System.EventHandler(this.button37_Click);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(596, 23);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(56, 16);
+            this.label18.TabIndex = 29;
+            this.label18.Text = "Résultat";
+            this.label18.Click += new System.EventHandler(this.label18_Click);
+            // 
+            // pictureBox11
+            // 
+            this.pictureBox11.Location = new System.Drawing.Point(599, 51);
+            this.pictureBox11.Name = "pictureBox11";
+            this.pictureBox11.Size = new System.Drawing.Size(351, 434);
+            this.pictureBox11.TabIndex = 28;
+            this.pictureBox11.TabStop = false;
+            this.pictureBox11.Click += new System.EventHandler(this.pictureBox11_Click);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(21, 23);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(83, 16);
+            this.label19.TabIndex = 27;
+            this.label19.Text = "Votre image:";
+            // 
+            // button35
+            // 
+            this.button35.Enabled = false;
+            this.button35.Location = new System.Drawing.Point(407, 446);
+            this.button35.Name = "button35";
+            this.button35.Size = new System.Drawing.Size(152, 39);
+            this.button35.TabIndex = 26;
+            this.button35.Text = "Enregistrement";
+            this.button35.UseVisualStyleBackColor = true;
+            this.button35.Visible = false;
+            this.button35.Click += new System.EventHandler(this.button35_Click_1);
+            // 
+            // pictureBox12
+            // 
+            this.pictureBox12.Location = new System.Drawing.Point(24, 51);
+            this.pictureBox12.Name = "pictureBox12";
+            this.pictureBox12.Size = new System.Drawing.Size(351, 434);
+            this.pictureBox12.TabIndex = 24;
+            this.pictureBox12.TabStop = false;
+            this.pictureBox12.Click += new System.EventHandler(this.pictureBox12_Click);
+            // 
+            // button36
+            // 
+            this.button36.Location = new System.Drawing.Point(404, 231);
+            this.button36.Name = "button36";
+            this.button36.Size = new System.Drawing.Size(165, 41);
+            this.button36.TabIndex = 23;
+            this.button36.Text = "Choisir le ficher";
+            this.button36.UseVisualStyleBackColor = true;
+            this.button36.Click += new System.EventHandler(this.button36_Click);
+            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.label7);
@@ -463,7 +593,7 @@ namespace Forms_projet_info
             // 
             this.label7.AutoSize = true;
             this.label7.ForeColor = System.Drawing.Color.SeaGreen;
-            this.label7.Location = new System.Drawing.Point(382, 236);
+            this.label7.Location = new System.Drawing.Point(388, 236);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(182, 16);
             this.label7.TabIndex = 32;
@@ -1133,123 +1263,6 @@ namespace Forms_projet_info
             // 
             this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
             // 
-            // tabPage7
-            // 
-            this.tabPage7.Controls.Add(this.label20);
-            this.tabPage7.Controls.Add(this.textBox14);
-            this.tabPage7.Controls.Add(this.button38);
-            this.tabPage7.Controls.Add(this.button37);
-            this.tabPage7.Controls.Add(this.label18);
-            this.tabPage7.Controls.Add(this.pictureBox11);
-            this.tabPage7.Controls.Add(this.label19);
-            this.tabPage7.Controls.Add(this.button35);
-            this.tabPage7.Controls.Add(this.pictureBox12);
-            this.tabPage7.Controls.Add(this.button36);
-            this.tabPage7.Location = new System.Drawing.Point(4, 25);
-            this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Size = new System.Drawing.Size(956, 536);
-            this.tabPage7.TabIndex = 6;
-            this.tabPage7.Text = "Rétrécissement / Agrandissement";
-            this.tabPage7.UseVisualStyleBackColor = true;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(21, 23);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(83, 16);
-            this.label19.TabIndex = 27;
-            this.label19.Text = "Votre image:";
-            // 
-            // button35
-            // 
-            this.button35.Enabled = false;
-            this.button35.Location = new System.Drawing.Point(407, 446);
-            this.button35.Name = "button35";
-            this.button35.Size = new System.Drawing.Size(152, 39);
-            this.button35.TabIndex = 26;
-            this.button35.Text = "Enregistrement";
-            this.button35.UseVisualStyleBackColor = true;
-            this.button35.Visible = false;
-            this.button35.Click += new System.EventHandler(this.button35_Click_1);
-            // 
-            // pictureBox12
-            // 
-            this.pictureBox12.Location = new System.Drawing.Point(24, 51);
-            this.pictureBox12.Name = "pictureBox12";
-            this.pictureBox12.Size = new System.Drawing.Size(351, 434);
-            this.pictureBox12.TabIndex = 24;
-            this.pictureBox12.TabStop = false;
-            this.pictureBox12.Click += new System.EventHandler(this.pictureBox12_Click);
-            // 
-            // button36
-            // 
-            this.button36.Location = new System.Drawing.Point(404, 231);
-            this.button36.Name = "button36";
-            this.button36.Size = new System.Drawing.Size(165, 41);
-            this.button36.TabIndex = 23;
-            this.button36.Text = "Choisir le ficher";
-            this.button36.UseVisualStyleBackColor = true;
-            this.button36.Click += new System.EventHandler(this.button36_Click);
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(596, 23);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(56, 16);
-            this.label18.TabIndex = 29;
-            this.label18.Text = "Résultat";
-            this.label18.Click += new System.EventHandler(this.label18_Click);
-            // 
-            // pictureBox11
-            // 
-            this.pictureBox11.Location = new System.Drawing.Point(599, 51);
-            this.pictureBox11.Name = "pictureBox11";
-            this.pictureBox11.Size = new System.Drawing.Size(351, 434);
-            this.pictureBox11.TabIndex = 28;
-            this.pictureBox11.TabStop = false;
-            this.pictureBox11.Click += new System.EventHandler(this.pictureBox11_Click);
-            // 
-            // button37
-            // 
-            this.button37.Location = new System.Drawing.Point(404, 51);
-            this.button37.Name = "button37";
-            this.button37.Size = new System.Drawing.Size(155, 29);
-            this.button37.TabIndex = 30;
-            this.button37.Text = "Agrandir";
-            this.button37.UseVisualStyleBackColor = true;
-            this.button37.Visible = false;
-            this.button37.Click += new System.EventHandler(this.button37_Click);
-            // 
-            // button38
-            // 
-            this.button38.Location = new System.Drawing.Point(404, 120);
-            this.button38.Name = "button38";
-            this.button38.Size = new System.Drawing.Size(155, 29);
-            this.button38.TabIndex = 31;
-            this.button38.Text = "Rétrécir";
-            this.button38.UseVisualStyleBackColor = true;
-            this.button38.Visible = false;
-            this.button38.Click += new System.EventHandler(this.button38_Click);
-            // 
-            // textBox14
-            // 
-            this.textBox14.Location = new System.Drawing.Point(459, 86);
-            this.textBox14.Name = "textBox14";
-            this.textBox14.Size = new System.Drawing.Size(100, 22);
-            this.textBox14.TabIndex = 32;
-            this.textBox14.TextChanged += new System.EventHandler(this.textBox14_TextChanged);
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(407, 89);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(46, 16);
-            this.label20.TabIndex = 33;
-            this.label20.Text = "Valeur";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1267,6 +1280,10 @@ namespace Forms_projet_info
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.tabPage7.ResumeLayout(false);
+            this.tabPage7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -1290,10 +1307,6 @@ namespace Forms_projet_info
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
-            this.tabPage7.ResumeLayout(false);
-            this.tabPage7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1402,6 +1415,7 @@ namespace Forms_projet_info
         private System.Windows.Forms.TextBox textBox14;
         private System.Windows.Forms.Button button38;
         private System.Windows.Forms.Button button37;
+        private System.Windows.Forms.Button button39;
     }
 }
 
