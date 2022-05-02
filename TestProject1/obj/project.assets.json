@@ -6129,19 +6129,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\elias\\.nuget\\packages\\": {}
+    "C:\\Users\\Arthur\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\elias\\Desktop\\Forms projet info\\TestProject1\\TestProject1.csproj",
+      "projectUniqueName": "C:\\Users\\Arthur\\Documents\\GitHub\\Forms-projet-info\\TestProject1\\TestProject1.csproj",
       "projectName": "TestProject1",
-      "projectPath": "C:\\Users\\elias\\Desktop\\Forms projet info\\TestProject1\\TestProject1.csproj",
-      "packagesPath": "C:\\Users\\elias\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\elias\\Desktop\\Forms projet info\\TestProject1\\obj\\",
+      "projectPath": "C:\\Users\\Arthur\\Documents\\GitHub\\Forms-projet-info\\TestProject1\\TestProject1.csproj",
+      "packagesPath": "C:\\Users\\Arthur\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Arthur\\Documents\\GitHub\\Forms-projet-info\\TestProject1\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\elias\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Arthur\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6155,8 +6155,8 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\elias\\Desktop\\Forms projet info\\Forms projet info\\Forms projet info.csproj": {
-              "projectPath": "C:\\Users\\elias\\Desktop\\Forms projet info\\Forms projet info\\Forms projet info.csproj"
+            "C:\\Users\\Arthur\\Documents\\GitHub\\Forms-projet-info\\Forms projet info\\Forms projet info.csproj": {
+              "projectPath": "C:\\Users\\Arthur\\Documents\\GitHub\\Forms-projet-info\\Forms projet info\\Forms projet info.csproj"
             }
           }
         }
@@ -6203,7 +6203,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
       }
     }
   }
