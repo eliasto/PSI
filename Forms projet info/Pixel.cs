@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Forms_projet_info
 {
-    class Pixel
+    public class Pixel
     {
         private int R; //Pixel Rouge
         private int G; //Pixel Vert

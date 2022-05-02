@@ -10,7 +10,7 @@ using System.Diagnostics;
 
 namespace Forms_projet_info
 {
-    class MyImage
+    public class MyImage
     {
         private string type; //Type de l'image
         private int taille; //Taille en octet de l'image
@@ -1183,7 +1183,7 @@ namespace Forms_projet_info
                     {
                         for (int j = 0; j < tab.GetLength(1); j++)
                         {
-                            cadre += (tab[i,j] == 7 || tab[i,j] == 8) ? ""+tab[i, j] : "*";
+                            cadre += tab[i,j] == 7?"0":tab[i,j] == 8?"1":"*";
                         }
                         cadre += "\n";
                     }
