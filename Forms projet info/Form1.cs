@@ -779,7 +779,7 @@ namespace Forms_projet_info
 
         private void textBox12_TextChanged(object sender, EventArgs e)
         {
-
+            //
         }
 
         private void textBox13_TextChanged(object sender, EventArgs e)
